@@ -113,8 +113,8 @@
 
   .h2-poppins {
     @apply font-bold;
-    font-family: var(--menu-poppins);
-    font-size: 44px; /* Define o tamanho exato */
+    font-family: var(--h2-poppins);
+    font-size: 50px; /* Define o tamanho exato */
     color: var(--primary-color-4);
   }
 
@@ -152,15 +152,84 @@
 
   /*=========================== SOBRE NÓS ====================================================================================*/
   .about-container {
-    @apply max-w-7xl mx-auto;
-    background-color: var(--light-background-color);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 80px;
-    padding-left: 100px;
-    padding-right: 140px;
+    @apply bg-[var(--light-background-color)] rounded-[40px] p-10; /* Estilos gerais */
+    display: grid; /* Define o layout como grid */
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de tamanhos iguais */
+    gap: 20px; /* Espaçamento entre as colunas */
+    align-items: center; /* Centraliza os itens verticalmente */
+    padding: 100px;
+    margin-top: 80px;
   }
 
+  .about-container img {
+    @apply h-[350px] w-[360px]; /* Define as dimensões */
+    display: block; /* Garante que a imagem seja tratada como um bloco */
+    margin: 0 auto; /* Centraliza horizontalmente */
+  }
+
+  .about-container h2 {
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-4);
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+  }
+  
+  .about-container p {
+    @apply font-normal;
+    font-family: var(--paragraph-poppins);
+    color: var(--black);
+    margin-top: 16px; /* Espaçamento acima do parágrafo */
+  }
+
+  /*=========================== POR QUE DOAR? ====================================================================================*/
+  .why-container {
+    @apply bg-[var(--light-background-color)] rounded-[40px] p-10; /* Estilos gerais */
+    display: grid; /* Define o layout como grid */
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de tamanhos iguais */
+    gap: 20px; /* Espaçamento entre as colunas */
+    align-items: center; /* Centraliza os itens verticalmente */
+    padding: 100px;
+  }
+
+  .why-container img {
+    @apply h-[399px] w-[375px]; /* Define as dimensões */
+    display: block; /* Garante que a imagem seja tratada como um bloco */
+    margin: 0 auto; /* Centraliza horizontalmente */
+  }
+
+  .why-container h4 {
+    @apply font-bold;
+    font-family: var(--h4-poppins);
+    font-size: var(--h4-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--black);
+    margin-top: 16px; /* Espaçamento acima do parágrafo */
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+  }
+
+ .why-container h2 {
+  @apply font-bold;
+  font-family: var(--menu-poppins);
+  font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+  color: var(--primary-color-4); /* Cor do título */
+  margin-bottom: 16px; /* Espaçamento abaixo do título */
+  text-align: center; /* Centraliza o texto */
+  }
+  
+  .why-container p {
+    @apply font-normal;
+    font-family: var(--paragraph-poppins);
+    font-size: var(--paragraph-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--black); /* Cor do texto */
+    margin-bottom: 16px; /* Espaçamento abaixo do texto */
+  }
+
+  .why-container h1 {
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h4-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-5); /* Cor do texto */
+    margin-bottom: 16px; /* Espaçamento abaixo do texto */
+    text-align: center; /* Centraliza o texto */
+  }
 }

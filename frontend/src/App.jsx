@@ -52,19 +52,35 @@ function About() {
   return (
     <div className="about-container">
       <div>
-        <img src={vectorAbout} alt="HemoWeb About" className="h-40 w-auto" />
+        <img src={vectorAbout} alt="Sobre Nós" className="about-image" />
       </div>
       <div>
-        <h1 className="h2-poppins text-primary-color-4">Bem-vindo ao HemoWeb</h1>
-       </div>
+        <h2>O que nós somos?</h2>
+        <p>
+          Somos uma plataforma digital dedicada a centralizar e organizar as informações dos doadores de sangue no Brasil.
+
+Nosso sistema visa substituir os métodos tradicionais, como telefonemas e listas impressas, por uma gestão moderna e eficiente. 
+
+Com funcionalidades como agendamento online e notificações personalizadas, oferecemos aos usuários a possibilidade de se programar para a doação de forma prática e sem a necessidade de contato direto com os locais de doação, otimizando o processo.
+        </p>
+      </div>
     </div>
   );
 }
 
 function Why() {
   return (
-    <div>
-      <h1>uai</h1> 
+    <div className="why-container">
+      <div>
+      <p>A doação de sangue é um ato altruísta e de solidariedade, que ajuda a salvar muitas vidas. É um gesto de amor ao próximo que pode gerar muitos sorrisos.</p>
+      <h4>É importante destacar que não há um substituto para o sangue e sua disponibilidade é essencial em diversas situações.</h4>
+      <p>Seu consumo é diário e contínuo, já que a transfusão de sangue é necessária em diversas situações, tais como anemias cronicas, cirurgias de urgência, acidentes que causam hemorragias, complicações da dengue, febre amarela, tratamento de câncer e outras doenças graves.</p>
+      </div>
+      <div>
+        <h2>Por que doar?</h2>
+        <h1>Ajude a salvar vidas!</h1>
+        <img src={vectorWhy} alt="Por que doar?" className="about-image" />
+      </div>
     </div>
   );
 }
