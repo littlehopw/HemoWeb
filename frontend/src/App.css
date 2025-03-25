@@ -129,6 +129,11 @@
     @apply h-96 w-96; /* Define o tamanho da imagem */
     align-self: flex-end; /* Alinha a imagem à borda inferior */
     margin-bottom: 0; /* Remove qualquer margem inferior */
+    transition: transform 0.3s ease-in-out; /* Suaviza a animação */
+  }
+
+  .hero-container img:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
   }
   
   /* Button styles */
@@ -165,6 +170,11 @@
     @apply h-[350px] w-[360px]; /* Define as dimensões */
     display: block; /* Garante que a imagem seja tratada como um bloco */
     margin: 0 auto; /* Centraliza horizontalmente */
+    transition: transform 0.3s ease-in-out; /* Suaviza a animação */
+  }
+
+  .about-container img:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
   }
 
   .about-container h2 {
@@ -196,6 +206,11 @@
     @apply h-[399px] w-[375px]; /* Define as dimensões */
     display: block; /* Garante que a imagem seja tratada como um bloco */
     margin: 0 auto; /* Centraliza horizontalmente */
+    transition: transform 0.3s ease-in-out; /* Suaviza a animação */
+  }
+
+  .why-container img:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
   }
 
   .why-container h4 {
@@ -208,12 +223,12 @@
   }
 
  .why-container h2 {
-  @apply font-bold;
-  font-family: var(--menu-poppins);
-  font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
-  color: var(--primary-color-4); /* Cor do título */
-  margin-bottom: 16px; /* Espaçamento abaixo do título */
-  text-align: center; /* Centraliza o texto */
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-4); /* Cor do título */
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+    text-align: center; /* Centraliza o texto */
   }
   
   .why-container p {
@@ -231,5 +246,94 @@
     color: var(--primary-color-5); /* Cor do texto */
     margin-bottom: 16px; /* Espaçamento abaixo do texto */
     text-align: center; /* Centraliza o texto */
+  }
+
+  /*=========================== MENSAGEM ====================================================================================*/
+  .message-container {
+    @apply bg-[var(--light-background-color)]; /* Estilos gerais */
+    display: flex; /* Define o layout como grid */
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens verticalmente */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+  }
+
+  .message-container h2{
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-4); /* Cor do título */
+    margin-top: 16px; /* Espaçamento abaixo do título */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .message-container h3{
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: 38px;
+    color: var(--primary-color-4); /* Cor do título */
+    text-align: center; /* Centraliza o texto */
+    margin-bottom: 80px; /* Espaçamento abaixo do título */
+
+  }
+
+  .message-container img{
+    margin-bottom: 40px;
+    width: 40%;
+    height: 40%;
+  }
+
+  /*=========================== FOOTER ====================================================================================*/
+  .footer-container {
+    background-color: var(--primary-color-2); /* Cor do texto */
+    padding-top: 40px; /* Espaçamento acima do conteúdo */
+    padding-bottom: 20px; /* Espaçamento acima do conteúdo */
+  }
+  
+  .footer-content {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center; /* Centraliza o conteúdo */
+  }
+  
+  .footer-logo {
+    @apply text-white text-2xl font-bold mb-6; /* Estilo do logo ou nome da marca */
+  }
+  
+  .footer-nav {
+    @apply flex flex-wrap justify-center gap-6 md:gap-8; /* Links de navegação */
+  }
+  
+  .footer-nav-link {
+    @apply text-base font-medium; /* Estilo base dos links */
+    color: var(--white); /* Cor do texto */
+    transition: color 0.3s ease-in-out; /* Suaviza a transição de cor */
+  }
+  
+  .footer-nav-link:hover {
+    color: var(--primary-color-1); /* Cor no hover */
+  }
+
+  .footer-social {
+    @apply flex flex-row space-x-6; /* Alinha os ícones em uma linha com espaçamento entre eles */
+    justify-content: center; /* Centraliza os ícones horizontalmente */
+    margin-top: 20px; /* Adiciona espaçamento acima dos ícones */
+    margin-bottom: 20px; /* Adiciona espaçamento abaixo dos ícones */
+  }
+  
+  .footer-social-link {
+    @apply text-gray-400; /* Cor inicial dos ícones */
+    color: var(--white); /* Cor do texto */
+    transition: color 0.3s ease-in-out; /* Suaviza a transição de cor */
+  }
+  
+  .footer-social-link:hover {
+    color: var(--primary-color-1); /* Cor no hover */
+  }
+  
+  .footer-copyright {
+    color: var(--white); /* Cor do texto */
+  }
+
+  /*=========================== Rolagem ====================================================================================*/
+  html {
+    scroll-behavior: smooth; /* Habilita a rolagem suave */
   }
 }

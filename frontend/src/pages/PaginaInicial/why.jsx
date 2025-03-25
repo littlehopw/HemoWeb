@@ -3,7 +3,7 @@ import vectorWhy from '../../assets/vector-why.png';
 
 function Why() {
     return (
-      <div className="why-container">
+      <div id="why" className="why-container">
         <div>
         <p>A doação de sangue é um ato altruísta e de solidariedade, que ajuda a salvar muitas vidas. É um gesto de amor ao próximo que pode gerar muitos sorrisos.</p>
         <h4>É importante destacar que não há um substituto para o sangue e sua disponibilidade é essencial em diversas situações.</h4>
