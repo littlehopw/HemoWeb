@@ -1,42 +1,339 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background Colors */
+    --figma-background-color: rgba(208, 221, 228, 1);
+    --light-background-color: rgba(255, 255, 255, 1);
+
+    /* Primary Colors */
+    --primary-color-1: rgba(207, 233, 255, 1);
+    --primary-color-2: rgba(7, 80, 145, 1);
+    --primary-color-3: rgba(200, 66, 65, 1);
+    --primary-color-4: rgba(25, 37, 59, 1);
+    --primary-color-5: rgba(168, 36, 38, 1);
+    --primary-color-6: rgba(225, 92, 99, 1);
+    --primary-color-7: rgba(144, 216, 255, 1);
+    --primary-color-8: rgba(0, 46, 92, 1);
+
+    /* Secondary Colors */
+    --secondary-color-1: rgba(207, 133, 106, 1);
+    --secondary-color-2: rgba(175, 106, 90, 1);
+    --secondary-color-3: rgba(247, 186, 175, 1);
+
+    /* Semantic Colors */
+    --semantic-alert-color: rgba(237, 138, 39, 1);
+    --semantic-success-color: rgba(46, 158, 68, 1);
+    --semantic-error-color: rgba(215, 54, 53, 1);
+
+    /* Hover Colors */
+    --primary-color-2-hover: rgba(27, 126, 215, 1);
+
+    /* Black and White */
+    --black: rgba(0, 0, 0, 1);
+    --white: rgba(255, 255, 255, 1);
+
+    /* Text-size styles */
+    --h1-poppins: 64px;
+    --h2-poppins: 44px;
+    --h3-poppins: 21px;
+    --h4-poppins: 20px;
+    --h5-poppins: 19px;
+    --btn-text-poppins: 16px;
+    --menu-poppins: 16px;
+    --paragraph-poppins: 16px;
+    --h3-poppins-light: 19px;
+    --h3-menu-poppins: 21px;
+    --btn-text-small-poppins: 14px;
+    --paragraph-poppins-small: 12px;
+    --paragraph-poppins-small-semibold: 12px;
+    }
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+@layer components {
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+  /*=========================== HEADER ====================================================================================*/
+  /* Header container */
+  .header-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  to {
-    transform: rotate(360deg);
+
+  /* Header section */
+  .header {
+    @apply py-6 flex justify-between items-center;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  /* Logo */
+  .header-logo {
+    @apply flex-shrink-0;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .header-logo img {
+    @apply h-[60px] w-[60px]; /* 60px x 60px */
+  }
 
-.read-the-docs {
-  color: #888;
+  /* Navigation links */
+  .header-nav {
+    @apply hidden md:flex space-x-10;
+  }
+
+  .header-nav-link {
+    @apply text-base font-medium text-gray-500 hover:text-gray-900;
+    font-family: var(--menu-poppins);
+  }
+
+  /* Call-to-action container */
+  .header-cta {
+    @apply flex flex-row space-x-2; /* Flexbox para alinhar lado a lado */
+  }
+
+  .header-cta img {
+    @apply h-5 w-5; /* Define o tamanho do ícone */
+  }
+
+  .header-cta a {
+    @apply text-base font-medium text-gray-500 hover:text-gray-900 hidden md:flex space-x-10;
+    font-family: var(--menu-poppins);
+  }
+
+  /*=========================== HERO ====================================================================================*/
+  .hero-container {
+    @apply max-w-7xl mx-auto;
+    background-color: var(--primary-color-1);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 80px;
+    padding-left: 100px;
+    padding-right: 140px;
+  }
+
+  .h2-poppins {
+    @apply font-bold;
+    font-family: var(--h2-poppins);
+    font-size: 50px; /* Define o tamanho exato */
+    color: var(--primary-color-4);
+  }
+
+  .h3-poppins {
+    @apply font-normal;
+    font-family: var(--menu-poppins);
+    color: var(--black);
+    font-size: 21px; /* Define o tamanho exato */
+  }
+
+  .hero-container img {
+    @apply h-96 w-96; /* Define o tamanho da imagem */
+    align-self: flex-end; /* Alinha a imagem à borda inferior */
+    margin-bottom: 0; /* Remove qualquer margem inferior */
+    transition: transform 0.3s ease-in-out; /* Suaviza a animação */
+  }
+
+  .hero-container img:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
+  }
+  
+  /* Button styles */
+  .btn-text {
+    @apply flex items-center justify-center;
+    height: 60px;
+    width: 170px;
+    font-family: var(--btn-text-poppins);
+    background-color: var(--primary-color-2);
+    border-radius: 55px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-text:hover {
+    background-color: var(--primary-color-4);
+  }
+
+  /*=========================== SOBRE NÓS ====================================================================================*/
+  .about-container {
+    @apply bg-[var(--light-background-color)] rounded-[40px] p-10; /* Estilos gerais */
+    display: grid; /* Define o layout como grid */
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de tamanhos iguais */
+    gap: 20px; /* Espaçamento entre as colunas */
+    align-items: center; /* Centraliza os itens verticalmente */
+    padding: 100px;
+    margin-top: 80px;
+  }
+
+  .about-container img {
+    @apply h-[350px] w-[360px]; /* Define as dimensões */
+    display: block; /* Garante que a imagem seja tratada como um bloco */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    transition: transform 0.3s ease-in-out; /* Suaviza a animação */
+  }
+
+  .about-container img:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
+  }
+
+  .about-container h2 {
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-4);
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+  }
+  
+  .about-container p {
+    @apply font-normal;
+    font-family: var(--paragraph-poppins);
+    color: var(--black);
+    margin-top: 16px; /* Espaçamento acima do parágrafo */
+  }
+
+  /*=========================== POR QUE DOAR? ====================================================================================*/
+  .why-container {
+    @apply bg-[var(--light-background-color)] rounded-[40px] p-10; /* Estilos gerais */
+    display: grid; /* Define o layout como grid */
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de tamanhos iguais */
+    gap: 20px; /* Espaçamento entre as colunas */
+    align-items: center; /* Centraliza os itens verticalmente */
+    padding: 100px;
+  }
+
+  .why-container img {
+    @apply h-[399px] w-[375px]; /* Define as dimensões */
+    display: block; /* Garante que a imagem seja tratada como um bloco */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    transition: transform 0.3s ease-in-out; /* Suaviza a animação */
+  }
+
+  .why-container img:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
+  }
+
+  .why-container h4 {
+    @apply font-bold;
+    font-family: var(--h4-poppins);
+    font-size: var(--h4-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--black);
+    margin-top: 16px; /* Espaçamento acima do parágrafo */
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+  }
+
+ .why-container h2 {
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-4); /* Cor do título */
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+    text-align: center; /* Centraliza o texto */
+  }
+  
+  .why-container p {
+    @apply font-normal;
+    font-family: var(--paragraph-poppins);
+    font-size: var(--paragraph-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--black); /* Cor do texto */
+    margin-bottom: 16px; /* Espaçamento abaixo do texto */
+  }
+
+  .why-container h1 {
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h4-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-5); /* Cor do texto */
+    margin-bottom: 16px; /* Espaçamento abaixo do texto */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  /*=========================== MENSAGEM ====================================================================================*/
+  .message-container {
+    @apply bg-[var(--light-background-color)]; /* Estilos gerais */
+    display: flex; /* Define o layout como grid */
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens verticalmente */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+  }
+
+  .message-container h2{
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: var(--h2-poppins); /* Usa a variável para o tamanho do texto */
+    color: var(--primary-color-4); /* Cor do título */
+    margin-top: 16px; /* Espaçamento abaixo do título */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .message-container h3{
+    @apply font-bold;
+    font-family: var(--menu-poppins);
+    font-size: 38px;
+    color: var(--primary-color-4); /* Cor do título */
+    text-align: center; /* Centraliza o texto */
+    margin-bottom: 80px; /* Espaçamento abaixo do título */
+
+  }
+
+  .message-container img{
+    margin-bottom: 40px;
+    width: 40%;
+    height: 40%;
+  }
+
+  /*=========================== FOOTER ====================================================================================*/
+  .footer-container {
+    background-color: var(--primary-color-2); /* Cor do texto */
+    padding-top: 40px; /* Espaçamento acima do conteúdo */
+    padding-bottom: 20px; /* Espaçamento acima do conteúdo */
+  }
+  
+  .footer-content {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center; /* Centraliza o conteúdo */
+  }
+  
+  .footer-logo {
+    @apply text-white text-2xl font-bold mb-6; /* Estilo do logo ou nome da marca */
+  }
+  
+  .footer-nav {
+    @apply flex flex-wrap justify-center gap-6 md:gap-8; /* Links de navegação */
+  }
+  
+  .footer-nav-link {
+    @apply text-base font-medium; /* Estilo base dos links */
+    color: var(--white); /* Cor do texto */
+    transition: color 0.3s ease-in-out; /* Suaviza a transição de cor */
+  }
+  
+  .footer-nav-link:hover {
+    color: var(--primary-color-1); /* Cor no hover */
+  }
+
+  .footer-social {
+    @apply flex flex-row space-x-6; /* Alinha os ícones em uma linha com espaçamento entre eles */
+    justify-content: center; /* Centraliza os ícones horizontalmente */
+    margin-top: 20px; /* Adiciona espaçamento acima dos ícones */
+    margin-bottom: 20px; /* Adiciona espaçamento abaixo dos ícones */
+  }
+  
+  .footer-social-link {
+    @apply text-gray-400; /* Cor inicial dos ícones */
+    color: var(--white); /* Cor do texto */
+    transition: color 0.3s ease-in-out; /* Suaviza a transição de cor */
+  }
+  
+  .footer-social-link:hover {
+    color: var(--primary-color-1); /* Cor no hover */
+  }
+  
+  .footer-copyright {
+    color: var(--white); /* Cor do texto */
+  }
+
+  /*=========================== Rolagem ====================================================================================*/
+  html {
+    scroll-behavior: smooth; /* Habilita a rolagem suave */
+  }
 }
