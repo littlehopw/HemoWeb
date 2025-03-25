@@ -1,15 +1,14 @@
 import './App.css';
-import PaginaInicial from './pages/pagina-inicial.jsx'
-import Cadastro from './pages/cadastro.jsx'
+import { Routes, Route } from 'react-router-dom'; // Certificando-se de importar Routes e Route
+import PaginaInicial from './pages/PaginaInicial/pagina-inicial.jsx';
+import Cadastro from './pages/Cadastro/cadastro.jsx';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/pagina-inicial" element={<PaginaInicial />} />
-        <Route path="/cadastro" element={<Cadastro />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/pagina-inicial" element={<PaginaInicial />} />
+      <Route path="/cadastro" element={<Cadastro />} />
+    </Routes>
   );
 }
 
