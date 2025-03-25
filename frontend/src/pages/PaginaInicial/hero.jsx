@@ -1,5 +1,5 @@
 import React from "react";
-import vectorHero from "./assets/vector-hero.png";
+import vectorHero from "../../assets/vector-hero.png";
 
 function Hero() {
   return (

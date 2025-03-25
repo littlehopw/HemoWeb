@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Importa o Link do React Router
-import "./App.css"; // Importa o CSS necessário
-import hemowebLogo from "./assets/hemoweb-logo.png";
-import vectorLogin from "./assets/vector-login.png";
+import hemowebLogo from "../../assets/hemoweb-logo.png";
+import vectorLogin from "../../assets/vector-login.png";
 
 function Header() {
   return (

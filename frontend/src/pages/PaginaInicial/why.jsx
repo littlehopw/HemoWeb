@@ -1,5 +1,5 @@
 import React from "react";
-import vectorWhy from "./assets/vector-why.png";
+import vectorWhy from "../../assets/vector-why.png";
 
 function Why() {
   return (
