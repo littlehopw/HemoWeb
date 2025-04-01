@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import vectorHero from '../../assets/vector-hero.png';
 
 function Hero() {
+  //COMENTÁRIO PARA NOVO COMMIT
   return (
     <div className="max-w-full md:max-w-[110%] lg:mx-10 mx-0 md:mx-auto bg-[var(--primary-color-1)] rounded-none md:rounded-[40px] flex flex-col md:flex-row justify-between pt-24 px-6 md:px-[10%]">
       <div className="flex flex-col justify-center">
