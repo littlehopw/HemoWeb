@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', testRoutes);
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.get('/test', testConnection);
 app.use(router);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server rodando na porta: ${PORT}`);
 });
 
 export default router;
