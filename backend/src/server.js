@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import 'dotenv/config';
+import './config/env.js';
+import pool from './config/database.js';
+import testRoutes from './routes/testRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import { testConnection } from './controllers/testController.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -8,22 +12,17 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Rota de teste
-app.get('/api/test', (req, res) => {
-  res.json({ message: "Conexão backend OK!" });
-});
+app.use('/api', testRoutes);
+app.use('/', authRoutes);
 
-// Conexão PostgreSQL (exemplo)
-import pg from 'pg';
-const { Pool } = pg;
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+const router = express.Router();
+
+router.get('/test', testConnection);
+
+app.use(router);
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Server rodando na porta: ${PORT}`);
 });
+
+export default router;
