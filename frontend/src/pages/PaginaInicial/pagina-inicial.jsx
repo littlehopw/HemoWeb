@@ -1,10 +1,10 @@
 import '../../App.css';
-import Header from './header.jsx';
-import Hero from './hero.jsx';
-import About from './about.jsx';
-import Why from './why.jsx';
-import Hemocentros from './hemocentros.jsx';
-import Message from './message.jsx';
+import Header from '../../components/header.jsx';
+import Hero from '../../components/hero.jsx';
+import About from '../../components/about.jsx';
+import Why from '../../components/why.jsx';
+import Hemocentros from '../../components/hemocentros.jsx';
+import Message from '../../components/message.jsx';
 import Footer from '../../components/footer.jsx';
 
 function paginaInicial() {
