@@ -43,7 +43,6 @@ function CadastroBox() {
         </button>
         </Link>
       </form>
-
       <div className="mt-4 text-xs text-gray-500">OU CADASTRE-SE COM:</div>
       <div className="flex justify-center gap-3 mt-1.5">
         <button className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200">
