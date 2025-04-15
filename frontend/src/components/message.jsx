@@ -1,5 +1,5 @@
 import React from "react";
-import vectorMessage from "../../assets/vector-message.png";
+import vectorMessage from "../assets/vector-message.png";
 
 function Message() {
   return (

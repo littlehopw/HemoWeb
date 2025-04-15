@@ -1,5 +1,5 @@
-import '../../App.css';
-import vectorWhy from '../../assets/vector-why.png';
+import "../../src/App.css";
+import vectorWhy from '../assets/vector-why.png';
 
 function Why() {
   return (
