@@ -1,13 +1,16 @@
+import * as React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router } from 'react-router-dom';
-import './index.css';
-import PaginaInicial from './pages/PaginaInicial/pagina-inicial.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
-createRoot(document.getElementById('root')).render(
+import App from './App';
+
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+root.render(
   <StrictMode>
-    <Router>
-      <PaginaInicial />
-    </Router>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 );

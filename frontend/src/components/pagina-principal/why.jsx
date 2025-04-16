@@ -1,4 +1,4 @@
-import '../../App.css';
+import "../../../src/App.css";
 import vectorWhy from '../../assets/vector-why.png';
 
 function Why() {
