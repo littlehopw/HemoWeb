@@ -1,4 +1,4 @@
-import vectorAbout from '../assets/vector-about.png';
+import vectorAbout from '../../assets/vector-about.png';
 
 function About() {
   return (

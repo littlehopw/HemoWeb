@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import vectorHero from '../assets/vector-hero.png';
+import vectorHero from '../../assets/vector-hero.png';
 
 function Hero() {
   return (
