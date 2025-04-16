@@ -1,4 +1,4 @@
-import "../../src/App.css";
+import "../../../src/App.css";
 import React from "react";
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ function ConfirmacaoCadastroBox() {
                 Agora basta fazer o login com a <br /> conta que você criou.
             </p>
             <Link
-                to="/login" // Altere conforme a rota da sua aplicação
+                to="/login"
                 className="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-800 transition inline-block"
             >
                 Fazer Login

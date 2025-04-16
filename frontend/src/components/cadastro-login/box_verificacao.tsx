@@ -1,4 +1,4 @@
-import "../../src/App.css";
+import "../../../src/App.css";
 import React from "react";
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ function VerificacaoBox() {
       <h1 className="text-2xl font-extrabold text-gray-900 mb-2">Verifique seu e-mail</h1>
       <p className="text-sm text-gray-600 mb-4">
         Enviamos um código de 6 dígitos para o e-mail: <br />
-        <span className="font-medium">anaclara@exemplo.com</span>, coloque-os nos espaços adequados para fazer a verificação.
+        <span className="font-medium">seuemail@dominio.com</span>, coloque-os nos espaços adequados para fazer a verificação.
       </p>
 
       <div className="flex justify-between mb-6">

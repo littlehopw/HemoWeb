@@ -1,4 +1,4 @@
-import "../../src/App.css";
+import "../../../src/App.css";
 import React from "react";
 import { Link } from 'react-router-dom';
 
@@ -21,6 +21,7 @@ function CadastroBox() {
           <label className="font-medium">E-MAIL</label>
           <input
             type="email"
+            placeholder="seuemail@dominio.com"
             className="w-full border border-gray-300 rounded-md p-1 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           />
         </div>

@@ -1,7 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import ConfirmacaoCadastroBox from '../../components/box_confirmacao_cadastro.jsx';
-import { Link } from 'react-router-dom';
+import ConfirmacaoCadastroBox from '../../components/cadastro-login/box_confirmacao_cadastro.jsx';
 
 function ConfirmacaoCadastro() {
   return (

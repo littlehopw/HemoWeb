@@ -1,6 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import VerificacaoBox from '../../components/box_verificacao.jsx';
+import VerificacaoBox from '../../components/cadastro-login/box_verificacao.jsx';
 import { Link } from 'react-router-dom';
 
 function Verificacao() {
