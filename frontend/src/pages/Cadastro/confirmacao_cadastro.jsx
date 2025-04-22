@@ -1,9 +1,8 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import CadastroBox from '../../components/cadastro-login/box_cadastro.jsx';
-import { Link } from 'react-router-dom';
+import ConfirmacaoCadastroBox from '../../components/cadastro-login/box_confirmacao_cadastro.jsx';
 
-function Cadastro() {
+function ConfirmacaoCadastro() {
   return (
     <>
       <div className="bg-gradient-to-br from-[var(--primary-color-1)] to-white">
@@ -11,13 +10,9 @@ function Cadastro() {
           <div className="flex items-center space-x-2">
             <img src={hemowebLogo} alt="HemoWeb Logo" className="h-20 w-auto" />
           </div>
-          <div>
-            <span className="text-gray-700 mr-2">Já tem uma conta?</span>
-            <Link to="/login" className="bg-blue-700 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-800 transition">Login</Link>
-          </div>
         </header>
         <div className="cadastro-container min-h-screen w-full flex flex-col justify-center items-center relative">
-          <CadastroBox />
+          <ConfirmacaoCadastroBox />
           <p className="text-gray-500 text-sm text-center absolute bottom-2">
             &copy; 2025 HemoWeb. Todos os direitos reservados.
           </p>
@@ -27,4 +22,4 @@ function Cadastro() {
   );
 }
 
-export default Cadastro;
+export default ConfirmacaoCadastro;

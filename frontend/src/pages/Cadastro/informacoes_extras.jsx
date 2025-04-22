@@ -1,9 +1,9 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import CadastroBox from '../../components/cadastro-login/box_cadastro.jsx';
+import InformacoesExtrasBox from '../../components/cadastro-login/box_informacoes_extras.jsx';
 import { Link } from 'react-router-dom';
 
-function Cadastro() {
+function InformacoesExtras() {
   return (
     <>
       <div className="bg-gradient-to-br from-[var(--primary-color-1)] to-white">
@@ -17,7 +17,7 @@ function Cadastro() {
           </div>
         </header>
         <div className="cadastro-container min-h-screen w-full flex flex-col justify-center items-center relative">
-          <CadastroBox />
+          <InformacoesExtrasBox />
           <p className="text-gray-500 text-sm text-center absolute bottom-2">
             &copy; 2025 HemoWeb. Todos os direitos reservados.
           </p>
@@ -27,4 +27,4 @@ function Cadastro() {
   );
 }
 
-export default Cadastro;
+export default InformacoesExtras;
