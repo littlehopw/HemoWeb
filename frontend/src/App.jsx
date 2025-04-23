@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import PaginaInicial from './pages/PaginaInicial/pagina-inicial';
 import Cadastro from './pages/Cadastro/cadastro';
 import Verificacao from './pages/Cadastro/verificacao_email';
@@ -10,6 +9,7 @@ import ConfirmacaoCadastro from './pages/Cadastro/confirmacao_cadastro';
 import EsqueciMinhaSenha from './pages/Login/esqueci_minha_senha';
 import RedefinaASenha from './pages/Login/redefina_a_senha';
 import SenhaRedefinida from './pages/Login/senha_redefinida';
+import Perfil from './pages/Perfil/perfil';
 
 export default function App() {
   return (
@@ -26,6 +26,8 @@ export default function App() {
         <Route path="esqueci_minha_senha" element={<EsqueciMinhaSenha />} />
         <Route path="redefina_a_senha" element={<RedefinaASenha />} />
         <Route path="senha_redefinida" element={<SenhaRedefinida />} />
+
+        <Route path="perfil" element={<Perfil />} />
       </Routes>
     </div>
   );
