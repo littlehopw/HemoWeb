@@ -3,6 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 
 import PaginaInicial from './pages/PaginaInicial/pagina-inicial';
 import Cadastro from './pages/Cadastro/cadastro';
+import Verificacao from './pages/Cadastro/verificacao_email';
+import Login from './pages/Login/login';
+import InformacoesExtras from './pages/Cadastro/informacoes_extras';
+import ConfirmacaoCadastro from './pages/Cadastro/confirmacao_cadastro';
+import EsqueciMinhaSenha from './pages/Login/esqueci_minha_senha';
+import RedefinaASenha from './pages/Login/redefina_a_senha';
+import SenhaRedefinida from './pages/Login/senha_redefinida';
 
 export default function App() {
   return (
@@ -11,6 +18,14 @@ export default function App() {
         <Route path="/" element={<PaginaInicial />} />
 
         <Route path="cadastro" element={<Cadastro />} />
+        <Route path="verificacao" element={<Verificacao />} />
+        <Route path="informacoes_extras" element={<InformacoesExtras />} />
+        <Route path="confirmacao_cadastro" element={<ConfirmacaoCadastro />} />
+
+        <Route path="login" element={<Login />} />
+        <Route path="esqueci_minha_senha" element={<EsqueciMinhaSenha />} />
+        <Route path="redefina_a_senha" element={<RedefinaASenha />} />
+        <Route path="senha_redefinida" element={<SenhaRedefinida />} />
       </Routes>
     </div>
   );
