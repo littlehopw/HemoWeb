@@ -31,14 +31,6 @@ function Perfil() {
                         </div>
                         <div>
                             <input
-                                type="text"
-                                placeholder="CPF"
-                                disabled
-                                className="w-full p-3 border rounded placeholder-gray-400"
-                            />
-                        </div>
-                        <div>
-                            <input
                                 type="email"
                                 placeholder="Email"
                                 className="w-full p-3 border rounded placeholder-gray-400"
@@ -51,10 +43,16 @@ function Perfil() {
                                 className="w-full p-3 border rounded placeholder-gray-400"
                             />
                         </div>
-                        <div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input
                                 type="text"
-                                placeholder="Celular"
+                                placeholder="Medula óssea"
+                                className="w-full p-3 border rounded placeholder-gray-400"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Tipo sanguíneo"
                                 className="w-full p-3 border rounded placeholder-gray-400"
                             />
                         </div>
@@ -62,27 +60,10 @@ function Perfil() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input
                                 type="text"
-                                placeholder="Estado"
+                                placeholder="Data de nascimento"
                                 className="w-full p-3 border rounded placeholder-gray-400"
                             />
-                            <input
-                                type="text"
-                                placeholder="Cidade"
-                                className="w-full p-3 border rounded placeholder-gray-400"
-                            />
-                        </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="Rua"
-                                className="w-full p-3 border rounded placeholder-gray-400"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Número"
-                                className="w-full p-3 border rounded placeholder-gray-400"
-                            />
                         </div>
                         <div className="flex flex-col md:flex-row gap-16 mt-8 justify-center">
                             <button className="bg-[var(--primary-color-2)] text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition">
