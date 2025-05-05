@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function Mensagem({ titulo, conteudo }) {
   return (
-    <div className="flex items-start bg-white p-4 shadow rounded-lg">
+    <div className="flex items-start bg-white p-4 shadow rounded-lg w-[70%] mx-auto hover:bg-gray-100 transition-colors">
       <div className="mr-4 text-blue-600 text-2xl">📥</div>
       <div>
         <p
@@ -73,8 +73,7 @@ function Notificacao() {
         {/* Imagem de perfil */}
         <div className="flex items-center">
           <img
-            src="https://via.placeholder.com/150"
-            alt="Perfil"
+            src="https://via.placeholder.com/150/0000FF/808080?text=Avatar"
             className="rounded-full border-4 border-white w-10 h-10 object-cover"
           />
         </div>
@@ -118,41 +117,40 @@ function Notificacao() {
         <div className="hidden md:flex relative bg-[#cfe8fc] h-40 items-center justify-center md:justify-end pr-0 md:pr-16">
           <div className="absolute top-20 md:mr-[60px]">
             <img
-              src="https://via.placeholder.com/150"
+              src="https://via.placeholder.com/150/0000FF/808080?text=Avatar"
               className="rounded-full border-4 border-white w-36 h-36 object-cover"
-              alt="Perfil"
             />
           </div>
         </div>
 
         {/* Conteúdo principal */}
-        <div className="flex flex-col items-center w-full px-4 mt-24 md:mt-10">
+        <div
+          className="flex flex-col items-center w-full px-4 mt-24 md:mt-10 flex-grow relative"
+        >
           {/* Abas */}
-          <div className="mt-8 flex gap-4 mb-4 border-b w-full max-w-2xl">
+          <div className="mt-8 flex gap-4 mb-4 border-b w-[70%] mx-auto">
             <button
               onClick={() => setAbaAtiva('novas')}
-              className={`pb-2 ${
-                abaAtiva === 'novas'
+              className={`pb-2 ${abaAtiva === 'novas'
                   ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
                   : 'text-gray-500 hover:text-blue-600'
-              }`}
+                }`}
             >
               Novas
             </button>
             <button
               onClick={() => setAbaAtiva('lidas')}
-              className={`pb-2 ${
-                abaAtiva === 'lidas'
+              className={`pb-2 ${abaAtiva === 'lidas'
                   ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
                   : 'text-gray-500 hover:text-blue-600'
-              }`}
+                }`}
             >
               Lidas
             </button>
           </div>
 
           {/* Lista de mensagens com barra de rolagem */}
-          <div className="space-y-4 w-full max-w-2xl h-64 overflow-y-auto">
+          <div className="space-y-4 w-full h-[50vh] md:h-64 overflow-y-auto">
             {mensagensExibidas.map((mensagem, index) => (
               <Mensagem
                 key={index}
@@ -162,20 +160,23 @@ function Notificacao() {
             ))}
           </div>
 
-          {/* Botões de ação */}
-          <div className="flex gap-6 mt-20 md:mt-16 lg:mt-20">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:opacity-90">
-              Ler tudo
-            </button>
-            <button className="bg-red-600 text-white px-6 py-2 rounded-full hover:opacity-90">
-              Excluir tudo
-            </button>
+          {/* Botões de ação e copyright */}
+          <div
+            className="flex flex-col items-center absolute left-1/2 transform -translate-x-1/2 w-[90%] md:w-auto"
+            style={{ bottom: '80px' }}
+          >
+            <div className="flex flex-wrap gap-6 justify-center">
+              <button className="bg-blue-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
+                Ler tudo
+              </button>
+              <button className="bg-red-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
+                Excluir tudo
+              </button>
+            </div>
+            <p className="text-sm text-gray-400 mt-8" style={{ marginTop: '30px' }}>
+              ©2025 Todos os direitos reservados. Hemoweb
+            </p>
           </div>
-
-          {/* Rodapé opcional */}
-          <footer className="mt-8 md:mt-4 text-sm text-gray-400">
-            ©2025 Todos os direitos reservados. Hemovida
-          </footer>
         </div>
       </div>
     </div>
