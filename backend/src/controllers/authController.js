@@ -5,18 +5,18 @@ import pool from '../config/database.js';
 const saltRounds = 10;
 const jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
 
-// função para cadastrar um novo usuário
+
 export const cadastro = async (req, res) => {
     const { nome, senha, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes } = req.body;
 
     console.log("✅ Recebido cadastro:", req.body);
 
     try {
-        // DEBUG: conexão
+
         const debug = await pool.query(`SELECT current_user, current_database(), current_schema()`);
         console.log("🧠 Conectado como:", debug.rows[0]);
 
-        // DEBUG: query executada
+
         const query = 'SELECT 1 FROM usuario WHERE email = $1';
         console.log('🧪 Query executada:', query);
 
@@ -44,13 +44,12 @@ export const cadastro = async (req, res) => {
     }
 };
 
-// função para autenticar o usuário
+
 export const login = async (req, res) => {
     const { email, senha } = req.body;
 
     try {
         const result = await pool.query('SELECT * FROM usuario WHERE email = $1', [email]);
-
         const user = result.rows[0];
 
         if (!user) {
@@ -64,9 +63,15 @@ export const login = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user.id, email: user.email }, jwtSecret, { expiresIn: '1h' });
-        res.json({ token });
+
+
+        const { senha: _, ...usuarioSemSenha } = user;
+
+        res.json({ token, usuario: usuarioSemSenha });
     } catch (error) {
         console.error("❌ Erro no login:", error);
         res.status(500).json({ error: error.message });
     }
 };
+
+

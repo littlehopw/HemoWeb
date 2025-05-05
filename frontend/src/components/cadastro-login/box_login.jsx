@@ -2,7 +2,7 @@ import "../../../src/App.css";
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
-import { login } from "../../services/api"; // serviço que envia POST para o backend
+import { login } from "../../services/api";
 
 function LoginBox() {
     const [showPassword, setShowPassword] = useState(false);
@@ -15,12 +15,14 @@ function LoginBox() {
         try {
             const data = await login(email, senha);
             localStorage.setItem("token", data.token);
+            localStorage.setItem("usuario", JSON.stringify(data.usuario));
             alert("Login realizado com sucesso!");
-            navigate("/perfil"); // redireciona
+            navigate("/perfil");
         } catch (error) {
             alert(error.message);
         }
     };
+
 
     return (
         <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm text-center mt-[-8rem]">

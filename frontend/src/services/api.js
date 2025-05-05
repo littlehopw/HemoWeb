@@ -1,34 +1,67 @@
 // src/services/api.js
+
 export async function cadastrar(userData) {
-    const response = await fetch("http://localhost:5000/api/auth/cadastro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userData)
-    });
-  
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error || "Erro ao cadastrar usuário");
-    }
-  
-    return await response.json(); // retorna os dados do usuário criado
+  const response = await fetch("http://localhost:5000/api/auth/cadastro", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(userData)
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.error || "Erro ao cadastrar usuário");
   }
-  
+
+
+  const data = await response.json();
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("usuario", JSON.stringify(data.usuario));
+  return data;
+}
+
 export async function login(email, senha) {
-    const response = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, senha }),
-    });
-  
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error || "Erro ao fazer login");
-    }
-  
-    return await response.json(); // { token: "..." }
+  const response = await fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, senha }),
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.error || "Erro ao fazer login");
   }
+
+
+  const data = await response.json();
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("usuario", JSON.stringify(data.usuario));
+  return data;
+}
+
+export async function atualizarPerfil(dadosAtualizados) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch("http://localhost:5000/api/user/profile", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(dadosAtualizados),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Erro ao atualizar perfil: ${text}`);
+  }
+
+
+  const updatedUser = await response.json();
+  localStorage.setItem("usuario", JSON.stringify(updatedUser));
+  return updatedUser;
+}
+
