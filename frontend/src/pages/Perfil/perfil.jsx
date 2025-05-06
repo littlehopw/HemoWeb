@@ -106,7 +106,7 @@ function Perfil() {
                                 placeholder="Nome"
                                 value={userData.nome}
                                 onChange={(e) => setUserData({ ...userData, nome: e.target.value })}
-                                disabled
+                                disabled={!isEditing}
                                 className="w-full p-3 border rounded placeholder-gray-400"
                             />
                         </div>
@@ -134,34 +134,58 @@ function Perfil() {
 
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="Medula óssea"
-                                value={userData.medula}
-                                onChange={(e) => setUserData({ ...userData, medula: e.target.value })}
-                                disabled
-                                className="w-full p-3 border rounded placeholder-gray-400"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Tipo sanguíneo"
-                                value={userData.tipoSanguineo}
-                                onChange={(e) => setUserData({ ...userData, tipoSanguineo: e.target.value })}
-                                disabled
-                                className="w-full p-3 border rounded placeholder-gray-400"
-                            />
-                        </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input
                                 type="date"
                                 placeholder="Data de nascimento"
                                 value={userData.nascimento}
                                 onChange={(e) => setUserData({ ...userData, nascimento: e.target.value })}
-                                disabled
+                                disabled={!isEditing}
+                                className="w-full p-3 border rounded placeholder-gray-400"
+                            />
+                            <input
+                                type="text"
+                                placeholder="sexo"
+                                value={userData.notificacoes}
+                                onChange={(e) => setUserData({ ...userData, sexo: e.target.value })}
+                                disabled={!isEditing}
                                 className="w-full p-3 border rounded placeholder-gray-400"
                             />
                         </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={userData.medula}
+                                    onChange={(e) => setUserData({ ...userData, medula: e.target.checked })}
+                                    disabled={!isEditing}
+                                    className="h-5 w-5"
+                                />
+                                <span className="text-gray-700">Doação de Medula Óssea</span>
+                            </label>
+
+                            <select
+                                value={userData.tipoSanguineo}
+                                onChange={(e) => setUserData({ ...userData, tipoSanguineo: e.target.value })}
+                                disabled={!isEditing}
+                                className="w-full p-3 border rounded text-gray-700"
+                            >
+                                <option value="">Selecione o tipo sanguíneo</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+
+
+
 
                         <div className="flex flex-col md:flex-row gap-16 mt-8 justify-center">
                             {isEditing ? (
