@@ -1,5 +1,5 @@
 import '../../App.css';
-import Sidebar from '../../components/Sidebar/sidebar.jsx';
+import Sidebar from '../../components/sidebar/sidebar.jsx';
 
 function Perfil() {
     return (
