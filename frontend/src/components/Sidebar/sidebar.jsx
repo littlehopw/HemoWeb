@@ -18,7 +18,7 @@ function Sidebar() {
                         <img src={HomeIcon} alt="Home" className="w-8 h-8" />
                         <span className="hidden md:block text-sm mt-1" > Perfil </span>
                     </a>
-                    < a href="/notificacoes" className="flex flex-col items-center" >
+                    < a href="/notificacao" className="flex flex-col items-center" >
                         <img src={NotificationIcon} alt="Notificações" className="w-8 h-8" />
                         <span className="hidden md:block text-sm mt-1" > Notificações </span>
                     </a>
