@@ -12,8 +12,10 @@ function CadastroBox() {
     tipo_sanguineo: "",
     data_nascimento: "",
     medula_ossea: false,
-    notificacoes: true
+    notificacoes: true,
+    sexo: "",
   });
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -70,15 +72,23 @@ function CadastroBox() {
           />
         </div>
         <div>
-          <label className="font-medium">TIPO SANGUÍNEO</label>
-          <input
-            type="text"
+          <label className="font-medium text-gray-700">TIPO SANGUÍNEO</label>
+          <select
             name="tipo_sanguineo"
             value={form.tipo_sanguineo}
             onChange={handleChange}
-            placeholder="Ex: O+"
-            className="w-full border border-gray-300 rounded-md p-1 mt-1 text-sm"
-          />
+            className="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+          >
+            <option value="">Selecione</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
         </div>
         <div>
           <label className="font-medium">DATA DE NASCIMENTO</label>
@@ -100,6 +110,44 @@ function CadastroBox() {
           />
           <span>Sou doador de medula óssea</span>
         </div>
+
+        <div className="text-sm">
+          <span className="font-medium">Sexo:</span>
+          <div className="flex gap-4 mt-1">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="sexo"
+                value="feminino"
+                checked={form.sexo === "feminino"} // ✅ controla o valor
+                onChange={handleChange}
+                className="mr-1"
+              />
+              Feminino
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="sexo"
+                value="masculino"
+                checked={form.sexo === "masculino"} // ✅ controla o valor
+                onChange={handleChange}
+                className="mr-1"
+              />
+              Masculino
+            </label>
+          </div>
+        </div>
+
+
+        <br />
+        <div className="flex items-center text-xs">
+          <input type="checkbox" className="mr-2" />
+          <span>
+            Concordo com o <a className="text-blue-600 underline" href="#">Termo de Uso</a> e <a className="text-blue-600 underline" href="#">Política de Privacidade</a>
+          </span>
+        </div>
+
         <button
           type="submit"
           className="w-full bg-blue-700 text-white py-1.5 text-sm rounded-md hover:bg-blue-800 transition"

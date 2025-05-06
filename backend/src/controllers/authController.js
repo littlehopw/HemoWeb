@@ -7,7 +7,7 @@ const jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
 
 
 export const cadastro = async (req, res) => {
-    const { nome, senha, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes } = req.body;
+    const { nome, senha, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes, sexo } = req.body;
 
     console.log("✅ Recebido cadastro:", req.body);
 
@@ -15,7 +15,6 @@ export const cadastro = async (req, res) => {
 
         const debug = await pool.query(`SELECT current_user, current_database(), current_schema()`);
         console.log("🧠 Conectado como:", debug.rows[0]);
-
 
         const query = 'SELECT 1 FROM usuario WHERE email = $1';
         console.log('🧪 Query executada:', query);
@@ -31,10 +30,10 @@ export const cadastro = async (req, res) => {
 
         const result = await pool.query(
             `INSERT INTO usuario 
-            (nome, senha, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes, data_criacao, data_modificacao)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            (nome, senha, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes, sexo, data_criacao, data_modificacao)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
             RETURNING *`,
-            [nome, hashedPassword, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes]
+            [nome, hashedPassword, email, medula_ossea, tipo_sanguineo, data_nascimento, notificacoes, sexo]
         );
 
         res.status(201).json(result.rows[0]);
