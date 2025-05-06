@@ -168,6 +168,7 @@ CREATE TABLE public.usuario (
     tipo_sanguineo character varying(3) NOT NULL,
     data_nascimento date NOT NULL,
     notificacoes boolean DEFAULT true,
+    sexo character varying(1) NOT NULL,
     data_criacao timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     data_modificacao timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );

@@ -158,7 +158,7 @@ function Perfil() {
                   disabled={!isEditing}
                   className="h-5 w-5"
                 />
-                <span className="text-gray-700">Doação de Medula Óssea</span>
+                <span className="text-gray-700">Doador de Medula Óssea</span>
               </label>
 
               <select
