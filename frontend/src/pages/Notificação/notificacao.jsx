@@ -1,11 +1,10 @@
 import '../../App.css';
-import Sidebar from '../../components/Sidebar/sidebar.jsx';
+import Sidebar from '../../components/sidebar/sidebar.jsx';
 import { useState } from 'react';
 
 function Mensagem({ titulo, conteudo }) {
   return (
     <div className="flex items-start bg-white p-4 shadow rounded-lg w-[70%] mx-auto hover:bg-gray-100 transition-colors">
-      <div className="mr-4 text-blue-600 text-2xl">📥</div>
       <div>
         <p
           className="font-bold text-black"
@@ -54,14 +53,10 @@ function Notificacao() {
 
   return (
     <div className="flex">
-      {/* Sidebar visível apenas em telas médias ou maiores */}
       <div className="hidden md:block">
         <Sidebar />
       </div>
-
-      {/* Navbar para telas pequenas */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-[#075091] h-16 flex items-center justify-between px-4 shadow-md z-10">
-        {/* Botão do menu hambúrguer */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="text-white text-2xl focus:outline-none"
@@ -69,17 +64,8 @@ function Notificacao() {
         >
           ☰
         </button>
-
-        {/* Imagem de perfil */}
-        <div className="flex items-center">
-          <img
-            src="https://via.placeholder.com/150/0000FF/808080?text=Avatar"
-            className="rounded-full border-4 border-white w-10 h-10 object-cover"
-          />
-        </div>
+        <div className="flex items-center"></div>
       </div>
-
-      {/* Menu lateral móvel */}
       {menuOpen && (
         <div className="fixed top-16 left-0 w-full bg-[#075091] text-white shadow-lg z-20">
           <ul className="flex flex-col p-4 space-y-4">
@@ -113,27 +99,18 @@ function Notificacao() {
       )}
 
       <div className="bg-white min-h-screen flex-1 flex flex-col">
-        {/* Cabeçalho somente em desktop */}
         <div className="hidden md:flex relative bg-[#cfe8fc] h-40 items-center justify-center md:justify-end pr-0 md:pr-16">
-          <div className="absolute top-20 md:mr-[60px]">
-            <img
-              src="https://via.placeholder.com/150/0000FF/808080?text=Avatar"
-              className="rounded-full border-4 border-white w-36 h-36 object-cover"
-            />
-          </div>
+          <div className="absolute top-20 md:mr-[60px]"> </div>
         </div>
-
-        {/* Conteúdo principal */}
         <div
           className="flex flex-col items-center w-full px-4 mt-24 md:mt-10 flex-grow relative"
         >
-          {/* Abas */}
           <div className="mt-8 flex gap-4 mb-4 border-b w-[70%] mx-auto">
             <button
               onClick={() => setAbaAtiva('novas')}
               className={`pb-2 ${abaAtiva === 'novas'
-                  ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
-                  : 'text-gray-500 hover:text-blue-600'
+                ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
+                : 'text-gray-500 hover:text-blue-600'
                 }`}
             >
               Novas
@@ -141,15 +118,13 @@ function Notificacao() {
             <button
               onClick={() => setAbaAtiva('lidas')}
               className={`pb-2 ${abaAtiva === 'lidas'
-                  ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
-                  : 'text-gray-500 hover:text-blue-600'
+                ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
+                : 'text-gray-500 hover:text-blue-600'
                 }`}
             >
               Lidas
             </button>
           </div>
-
-          {/* Lista de mensagens com barra de rolagem */}
           <div className="space-y-4 w-full h-[50vh] md:h-64 overflow-y-auto">
             {mensagensExibidas.map((mensagem, index) => (
               <Mensagem
@@ -159,8 +134,6 @@ function Notificacao() {
               />
             ))}
           </div>
-
-          {/* Botões de ação e copyright */}
           <div
             className="flex flex-col items-center absolute left-1/2 transform -translate-x-1/2 w-[90%] md:w-auto"
             style={{ bottom: '80px' }}
@@ -173,11 +146,11 @@ function Notificacao() {
                 Excluir tudo
               </button>
             </div>
-            <p className="text-sm text-gray-400 mt-8" style={{ marginTop: '30px' }}>
-              ©2025 Todos os direitos reservados. Hemoweb
-            </p>
           </div>
         </div>
+        <p className="text-gray-400 text-xs mt-10 mb-4 text-center">
+          &copy; 2025 HemoWeb. Todos os direitos reservados.
+        </p>
       </div>
     </div>
   );

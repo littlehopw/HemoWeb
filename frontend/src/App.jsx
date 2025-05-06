@@ -10,7 +10,7 @@ import EsqueciMinhaSenha from './pages/Login/esqueci_minha_senha';
 import RedefinaASenha from './pages/Login/redefina_a_senha';
 import SenhaRedefinida from './pages/Login/senha_redefinida';
 import Perfil from './pages/Perfil/perfil';
-import Notificacao from './pages/Perfil/notificacao';
+import Notificacao from './pages/Notificação/notificacao';
 import Agendamento from './pages/Agendamento/agendamento';
 import NovoAgendamento from './pages/Agendamento/novo_agendamento';
 
