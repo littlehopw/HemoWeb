@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import '../../App.css';
-import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { atualizarPerfil } from '../../services/api';
+import Sidebar from '../../components/sidebar/sidebar.jsx';
 
 function Perfil() {
   const [userData, setUserData] = useState({
