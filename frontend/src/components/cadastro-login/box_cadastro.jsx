@@ -118,8 +118,8 @@ function CadastroBox() {
               <input
                 type="radio"
                 name="sexo"
-                value="feminino"
-                checked={form.sexo === "feminino"} // ✅ controla o valor
+                value="F"
+                checked={form.sexo === "F"}
                 onChange={handleChange}
                 className="mr-1"
               />
@@ -129,8 +129,8 @@ function CadastroBox() {
               <input
                 type="radio"
                 name="sexo"
-                value="masculino"
-                checked={form.sexo === "masculino"} // ✅ controla o valor
+                value="M"
+                checked={form.sexo === "M"}
                 onChange={handleChange}
                 className="mr-1"
               />
@@ -138,7 +138,6 @@ function CadastroBox() {
             </label>
           </div>
         </div>
-
 
         <br />
         <div className="flex items-center text-xs">
