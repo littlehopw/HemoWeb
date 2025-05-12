@@ -1,6 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import RedefinaASenhaBox from '../../components/cadastro-login/box_redefina_a_senha.jsx';
+import RedefinaASenhaBox from '../../components/CadastroLogin/box_redefina_a_senha.jsx';
 import { Link } from 'react-router-dom';
 
 function RedefinaASenha() {

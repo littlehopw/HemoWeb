@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import PaginaInicial from './pages/PaginaInicial/pagina-inicial';
+import PaginaInicial from './pages/PaginaInicial/pagina_inicial';
 import Cadastro from './pages/Cadastro/cadastro';
 import Verificacao from './pages/Cadastro/verificacao_email';
 import Login from './pages/Login/login';

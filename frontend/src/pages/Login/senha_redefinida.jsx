@@ -1,6 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import SenhaRedefinidaBox from '../../components/cadastro-login/box_senha_redefinida.jsx';
+import SenhaRedefinidaBox from '../../components/CadastroLogin/box_senha_redefinida.jsx';
 import { Link } from 'react-router-dom';
 
 function SenhaRedefinida() {

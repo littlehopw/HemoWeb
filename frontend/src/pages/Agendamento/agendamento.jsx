@@ -1,5 +1,5 @@
 import '../../App.css';
-import Sidebar from '../../components/sidebar/sidebar.jsx';
+import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { FiEdit, FiTrash2, FiCheck } from 'react-icons/fi';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';

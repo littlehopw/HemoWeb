@@ -1,5 +1,5 @@
 import '../../App.css';
-import Sidebar from '../../components/sidebar/sidebar.jsx';
+import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

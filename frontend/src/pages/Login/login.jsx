@@ -1,6 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import LoginBox from '../../components/cadastro-login/box_login.jsx';
+import LoginBox from '../../components/CadastroLogin/box_login.jsx';
 import { Link } from 'react-router-dom';
 
 function Login() {

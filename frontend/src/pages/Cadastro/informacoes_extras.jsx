@@ -1,6 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import InformacoesExtrasBox from '../../components/cadastro-login/box_informacoes_extras.jsx';
+import InformacoesExtrasBox from '../../components/CadastroLogin/box_informacoes_extras.jsx';
 import { Link } from 'react-router-dom';
 
 function InformacoesExtras() {

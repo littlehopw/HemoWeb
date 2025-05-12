@@ -1,6 +1,6 @@
 import '../../App.css';
 import hemowebLogo from '../../assets/hemoweb-logo.png';
-import EsqueciMinhaSenhaBox from '../../components/cadastro-login/box_esqueci_minha_senha.jsx';
+import EsqueciMinhaSenhaBox from '../../components/CadastroLogin/box_esqueci_minha_senha.jsx';
 import { Link } from 'react-router-dom';
 
 function EsqueciMinhaSenha() {
