@@ -56,7 +56,7 @@ function Notificacao() {
       <div className="hidden md:block">
         <Sidebar />
       </div>
-      <div className="md:hidden fixed top-0 left-0 w-full bg-[#075091] h-16 flex items-center justify-between px-4 shadow-md z-10">
+      <div className="md:hidden fixed top-0 left-0 w-full bg-blue-900 h-16 flex items-center justify-between px-4 shadow-md z-10">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="text-white text-2xl focus:outline-none"
@@ -67,7 +67,7 @@ function Notificacao() {
         <div className="flex items-center"></div>
       </div>
       {menuOpen && (
-        <div className="fixed top-16 left-0 w-full bg-[#075091] text-white shadow-lg z-20">
+        <div className="fixed top-16 left-0 w-full bg-blue-900 text-white shadow-lg z-20">
           <ul className="flex flex-col p-4 space-y-4">
             <li>
               <a href="/perfil" className="hover:text-blue-300 cursor-pointer">
