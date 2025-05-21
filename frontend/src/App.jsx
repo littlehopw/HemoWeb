@@ -12,7 +12,8 @@ import SenhaRedefinida from './pages/Login/senha_redefinida';
 import Perfil from './pages/Perfil/perfil';
 import Notificacao from './pages/Notificação/notificacao';
 import Agendamento from './pages/Agendamento/agendamento';
-import NovoAgendamento from './pages/Agendamento/novo_agendamento';
+//import NovoAgendamento from './pages/Agendamento/novo_agendamento';
+import FAQ from './pages/FAQ/faq';
 
 export default function App() {
   return (
@@ -31,11 +32,10 @@ export default function App() {
         <Route path="senha_redefinida" element={<SenhaRedefinida />} />
 
         <Route path="perfil" element={<Perfil />} />
-
         <Route path="notificacao" element={<Notificacao />} />
-
         <Route path="agendamento" element={<Agendamento />} />
-        <Route path="novo_agendamento" element={<NovoAgendamento />} />
+        {/* <Route path="novo_agendamento" element={<NovoAgendamento />} /> Remova ou comente esta linha */}
+        <Route path="faq" element={<FAQ />} />
       </Routes>
     </div>
   );
