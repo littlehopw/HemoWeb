@@ -1,4 +1,4 @@
-import '../../App.css';
+/*import '../../App.css';
 import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -76,4 +76,4 @@ function NovoAgendamento() {
     );
 }
 
-export default NovoAgendamento;
+export default NovoAgendamento;*/
