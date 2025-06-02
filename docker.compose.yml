@@ -26,7 +26,7 @@ services:
     command: npm run dev -- --host
 
   postgres:
-    image: postgres:13
+    image: postgres:17
     restart: always
     environment:
       POSTGRES_USER: postgres
