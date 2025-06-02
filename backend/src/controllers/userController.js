@@ -1,30 +1,38 @@
-import pool from '../config/database.js';
+import prisma from '../prisma/client.js';
 import bcrypt from 'bcrypt';
 
-// GET /profile - Buscar dados do perfil do usuário logado
+// GET /profile
 export const getProfile = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const result = await pool.query(
-      `SELECT id, nome, email, tipo_sanguineo, medula_ossea, sexo,
-              data_nascimento, notificacoes, data_criacao, data_modificacao
-         FROM usuario
-        WHERE id = $1`,
-      [userId]
-    );
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        tipo_sanguineo: true,
+        medula_ossea: true,
+        sexo: true,
+        data_nascimento: true,
+        notificacoes: true,
+        data_criacao: true,
+        data_modificacao: true
+      }
+    });
 
-    if (result.rowCount === 0) {
+    if (!usuario) {
       return res.status(404).json({ error: 'Usuário não encontrado.' });
     }
 
-    res.json(result.rows[0]);
+    res.json(usuario);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// PUT /profile - Atualizar perfil do usuário
+// PUT /profile
 export const updateProfile = async (req, res) => {
   const userId = req.user.id;
   const {
@@ -39,75 +47,51 @@ export const updateProfile = async (req, res) => {
   } = req.body;
 
   try {
-    const campos = [];
-    const valores = [];
-    let index = 1;
+    const data = {};
 
-    if (nome !== undefined) {
-      campos.push(`nome = $${index++}`);
-      valores.push(nome);
-    }
+    if (nome !== undefined) data.nome = nome;
+    if (email !== undefined) data.email = email;
+    if (senha !== undefined) data.senha = await bcrypt.hash(senha, 10);
+    if (tipo_sanguineo !== undefined) data.tipo_sanguineo = tipo_sanguineo;
+    if (medula_ossea !== undefined) data.medula_ossea = medula_ossea;
+    if (data_nascimento !== undefined) data.data_nascimento = new Date(data_nascimento);
+    if (notificacoes !== undefined) data.notificacoes = notificacoes;
+    if (sexo !== undefined) data.sexo = sexo;
 
-    if (email !== undefined) {
-      campos.push(`email = $${index++}`);
-      valores.push(email);
-    }
+    data.data_modificacao = new Date();
 
-    if (senha !== undefined) {
-      const senhaHash = await bcrypt.hash(senha, 10);
-      campos.push(`senha = $${index++}`);
-      valores.push(senhaHash);
-    }
+    const usuarioAtualizado = await prisma.usuario.update({
+      where: { id: userId },
+      data,
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        tipo_sanguineo: true,
+        medula_ossea: true,
+        sexo: true,
+        data_nascimento: true,
+        notificacoes: true,
+        data_criacao: true,
+        data_modificacao: true
+      }
+    });
 
-    if (tipo_sanguineo !== undefined) {
-      campos.push(`tipo_sanguineo = $${index++}`);
-      valores.push(tipo_sanguineo);
-    }
-
-    if (medula_ossea !== undefined) {
-      campos.push(`medula_ossea = $${index++}`);
-      valores.push(medula_ossea);
-    }
-
-    if (data_nascimento !== undefined) {
-      campos.push(`data_nascimento = $${index++}`);
-      valores.push(data_nascimento);
-    }
-
-    if (notificacoes !== undefined) {
-      campos.push(`notificacoes = $${index++}`);
-      valores.push(notificacoes);
-    }
-
-    if (sexo !== undefined) {
-      campos.push(`sexo = $${index++}`);
-      valores.push(sexo);
-    }
-
-    campos.push(`data_modificacao = CURRENT_TIMESTAMP`);
-
-    const query = `
-      UPDATE usuario
-         SET ${campos.join(', ')}
-       WHERE id = $${index}
-   RETURNING id, nome, email, tipo_sanguineo, medula_ossea, sexo,
-             data_nascimento, notificacoes, data_criacao, data_modificacao`;
-
-    valores.push(userId);
-
-    const result = await pool.query(query, valores);
-    res.json(result.rows[0]);
+    res.json(usuarioAtualizado);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// DELETE /profile - Excluir conta do usuário
+// DELETE /profile
 export const deleteProfile = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    await pool.query('DELETE FROM usuario WHERE id = $1', [userId]);
+    await prisma.usuario.delete({
+      where: { id: userId }
+    });
+
     res.json({ message: 'Conta excluída com sucesso.' });
   } catch (error) {
     res.status(500).json({ error: error.message });
