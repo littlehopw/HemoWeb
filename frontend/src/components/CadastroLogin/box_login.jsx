@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../../services/api";
+import { auth, googleProvider, facebookProvider } from '../../firebase/firebase';
+import { signInWithPopup } from "firebase/auth";
 
 function LoginBox() {
     const [showPassword, setShowPassword] = useState(false);
@@ -68,10 +70,34 @@ function LoginBox() {
             </form>
             <div className="mt-4 text-xs text-gray-500 text-center">OU FAÇA LOGIN COM:</div>
             <div className="flex justify-center gap-3 mt-1.5">
-                <button className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200">
+                <button
+                    className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200"
+                    type="button"
+                    onClick={async () => {
+                        try {
+                            const result = await signInWithPopup(auth, googleProvider);
+                            alert("Login Google realizado: " + result.user.email);
+                            navigate("/perfil"); 
+                        } catch (error) {
+                            alert("Erro ao logar com Google: " + error.message);
+                        }
+                    }}
+                >
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
                 </button>
-                <button className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200">
+                <button
+                    className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200"
+                    type="button"
+                    onClick={async () => {
+                        try {
+                            const result = await signInWithPopup(auth, facebookProvider);
+                            alert("Login Facebook realizado: " + result.user.email);
+                            navigate("/perfil");
+                        } catch (error) {
+                            alert("Erro ao logar com Facebook: " + error.message);
+                        }
+                    }}
+                >
                     <img src="https://www.svgrepo.com/show/452196/facebook-1.svg" alt="Facebook" className="w-5 h-5" />
                 </button>
             </div>
