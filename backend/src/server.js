@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import './config/env.js';
-import pool from './config/database.js';
+import prisma from './prisma/client.js'; // Prisma substitui pool
 import testRoutes from './routes/testRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -13,14 +13,30 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Rotas organizadas com prefixo /api
-app.use('/api/test', testRoutes);       // ex: GET /api/test/ping
-app.use('/api/auth', authRoutes);       // ex: POST /api/auth/login
-app.use('/api/user', userRoutes);       // ex: GET /api/user/profile
-
-// Rota simples de saúde do servidor (opcional)
+app.use('/api/test', testRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.get('/ping', testConnection);
 
-app.listen(PORT, () => {
-  console.log(`Server rodando na porta: ${PORT}`);
+prisma.$connect()
+  .then(() => {
+    console.log("✅ Prisma conectado com sucesso");
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server rodando na porta: ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Falha ao conectar com o banco via Prisma:", err);
+  });
+
+// Encerra conexões Prisma ao finalizar
+process.on('SIGINT', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
 });
