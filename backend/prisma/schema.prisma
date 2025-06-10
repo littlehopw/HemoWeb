@@ -48,7 +48,6 @@ model Agendamento {
   data_modificacao    DateTime    @updatedAt
   hemocentro          Hemocentros @relation(fields: [hemocentro_fk], references: [id], onDelete: Cascade)
   usuario             Usuario     @relation(fields: [usuario_fk], references: [id], onDelete: Cascade)
-  doacao              Doacao?
 }
 
 model Notificacao {
@@ -60,16 +59,6 @@ model Notificacao {
   data_criacao     DateTime @default(now())
   data_modificacao DateTime @updatedAt
   usuario          Usuario  @relation(fields: [usuario_fk], references: [id], onDelete: Cascade)
-}
-
-model Doacao {
-  id               Int         @id @default(autoincrement())
-  agendamento_fk   Int         @unique
-  tipo_doacao      String
-  status           String
-  data_criacao     DateTime    @default(now())
-  data_modificacao DateTime    @updatedAt
-  agendamento      Agendamento @relation(fields: [agendamento_fk], references: [id], onDelete: Cascade)
 }
 
 generator client {
