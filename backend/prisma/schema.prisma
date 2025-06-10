@@ -1,35 +1,37 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 model Usuario {
   id               Int           @id @default(autoincrement())
   nome             String
   email            String        @unique
   senha            String
   medula_ossea     Boolean
-  tipo_sanguineo   String        @db.VarChar(3)
-  data_nascimento  DateTime      @db.Date
+  tipo_sanguineo   String
+  data_nascimento  DateTime
   notificacoes     Boolean       @default(true)
-  sexo             String        @db.VarChar(1)
+  sexo             String
+  icone_fk         Int
   data_criacao     DateTime      @default(now())
   data_modificacao DateTime      @updatedAt
   agendamentos     Agendamento[]
+  icone            Icone         @relation(fields: [icone_fk], references: [id], onDelete: Cascade)
+  Notificacao      Notificacao[]
+}
+
+model Icone {
+  id               Int       @id @default(autoincrement())
+  url              String
+  data_criacao     DateTime  @default(now())
+  data_modificacao DateTime  @updatedAt
+  usuarios         Usuario[]
 }
 
 model Hemocentros {
   id               Int           @id @default(autoincrement())
-  rua              String        @db.VarChar(255)
-  bairro           String        @db.VarChar(100)
-  cidade           String        @db.VarChar(100)
-  numero           String        @db.VarChar(10)
-  cep              String        @db.VarChar(10)
-  estado           String        @db.VarChar(2)
+  rua              String
+  bairro           String
+  cidade           String
+  numero           String
+  cep              String
+  estado           String
   data_criacao     DateTime      @default(now())
   data_modificacao DateTime      @updatedAt
   agendamentos     Agendamento[]
@@ -38,10 +40,10 @@ model Hemocentros {
 model Agendamento {
   id                  Int         @id @default(autoincrement())
   usuario_fk          Int
-  data_agendamento    DateTime    @db.Date
-  horario_agendamento DateTime    @db.Time(6)
+  data_agendamento    DateTime
+  horario_agendamento DateTime
   hemocentro_fk       Int
-  status_agendamento  String      @default("Pendente") @db.VarChar(20)
+  status_agendamento  String      @default("Pendente")
   data_criacao        DateTime    @default(now())
   data_modificacao    DateTime    @updatedAt
   hemocentro          Hemocentros @relation(fields: [hemocentro_fk], references: [id], onDelete: Cascade)
@@ -49,11 +51,32 @@ model Agendamento {
   doacao              Doacao?
 }
 
+model Notificacao {
+  id               Int      @id @default(autoincrement())
+  titulo           String
+  mensagem         String
+  status           String
+  usuario_fk       Int
+  data_criacao     DateTime @default(now())
+  data_modificacao DateTime @updatedAt
+  usuario          Usuario  @relation(fields: [usuario_fk], references: [id], onDelete: Cascade)
+}
+
 model Doacao {
-  id                Int         @id @default(autoincrement())
-  quantidade_sangue Decimal     @db.Decimal(5, 2)
-  agendamento_fk    Int         @unique
-  data_criacao      DateTime    @default(now())
-  data_modificacao  DateTime    @updatedAt
-  agendamento       Agendamento @relation(fields: [agendamento_fk], references: [id], onDelete: Cascade)
+  id               Int         @id @default(autoincrement())
+  agendamento_fk   Int         @unique
+  tipo_doacao      String
+  status           String
+  data_criacao     DateTime    @default(now())
+  data_modificacao DateTime    @updatedAt
+  agendamento      Agendamento @relation(fields: [agendamento_fk], references: [id], onDelete: Cascade)
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
