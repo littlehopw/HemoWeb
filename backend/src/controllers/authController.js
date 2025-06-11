@@ -38,6 +38,7 @@ export const cadastro = async (req, res) => {
         tipo_sanguineo,
         data_nascimento: new Date(data_nascimento),
         notificacoes,
+	sexo,
       },
     });
 
