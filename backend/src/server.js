@@ -13,9 +13,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/test', testRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+app.use('/test', testRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 app.get('/ping', testConnection);
 
 prisma.$connect()
