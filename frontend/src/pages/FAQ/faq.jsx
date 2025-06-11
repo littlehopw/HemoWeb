@@ -190,11 +190,6 @@ function FAQ() {
                 </a>
               </li>
               <li>
-                <a href="/historico" className="hover:text-blue-300 cursor-pointer">
-                  Histórico
-                </a>
-              </li>
-              <li>
                 <a href="/agendamento" className="hover:text-blue-300 cursor-pointer">
                   Agendamento
                 </a>

@@ -2,28 +2,41 @@ import '../../App.css';
 import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { FiEdit, FiTrash2, FiCheck } from 'react-icons/fi';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Agendamento() {
     const [abaSelecionada, setAbaSelecionada] = useState('andamento');
+    const [agendamentosEmAndamento, setAgendamentosEmAndamento] = useState([]);
+    const [agendamentosConcluidos, setAgendamentosConcluidos] = useState([]);
 
-    const agendamentosEmAndamento = [
-        {
-            id: 1,
-            data: '02/09/2024',
-            hora: '12:00',
-            local: 'Rua Barão de Cataguases, s/n - Bairro: Centro - Cep: 36015-370 (Juiz de Fora)'
-        }
-    ];
+    useEffect(() => {
+        const todos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        const hoje = new Date();
+        const emAndamento = [];
+        const concluidos = [];
 
-    const agendamentosConcluidos = [
-        {
-            id: 2,
-            data: '01/06/2024',
-            hora: '15:00',
-            local: 'Rua Barão de Cataguases, s/n - Bairro: Centro - Cep: 36015-370 (Juiz de Fora)'
-        }
-    ];
+        todos.forEach((ag) => {
+            const [dia, mes, ano] = ag.data.split('/');
+            const dataAg = new Date(`${ano}-${mes}-${dia}`);
+            if (dataAg >= hoje) {
+                emAndamento.push(ag);
+            } else {
+                concluidos.push(ag);
+            }
+        });
+
+        setAgendamentosEmAndamento(emAndamento);
+        setAgendamentosConcluidos(concluidos);
+    }, []);
+
+    const handleExcluir = (id) => {
+        const todos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        const atualizados = todos.filter((ag) => ag.id !== id);
+        localStorage.setItem('agendamentos', JSON.stringify(atualizados));
+        window.location.reload();
+    };
+
 
     return (
         <div className="flex">
@@ -47,7 +60,7 @@ function Agendamento() {
                         </button>
                     </div>
                 </div>
-                <div className="flex-1 flex flex-col items-center mt-[-3rem]">
+                <div className="flex-1 flex flex-col items-center mt-4">
                     {(abaSelecionada === 'andamento' ? agendamentosEmAndamento : agendamentosConcluidos).map((item) => (
                         <div key={item.id} className="bg-white rounded-xl shadow-md p-5 w-full max-w-2xl relative mb-6">
                             <div className="flex justify-between items-start">
@@ -62,7 +75,11 @@ function Agendamento() {
                                 {abaSelecionada === 'andamento' ? (
                                     <div className="flex gap-3 text-gray-500 mt-1">
                                         <FiEdit className="hover:text-blue-600 cursor-pointer" size={18} />
-                                        <FiTrash2 className="hover:text-red-600 cursor-pointer" size={18} />
+                                        <FiTrash2
+                                            className="hover:text-red-600 cursor-pointer"
+                                            size={18}
+                                            onClick={() => handleExcluir(item.id)}
+                                        />
                                     </div>
                                 ) : (
                                     <FiCheck className="text-blue-600 mt-1" size={20} />

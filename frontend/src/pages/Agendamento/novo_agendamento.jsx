@@ -1,4 +1,4 @@
-/*import '../../App.css';
+import '../../App.css';
 import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -16,9 +16,21 @@ function NovoAgendamento() {
     };
 
     const handleConfirmar = () => {
-        console.log('Data:', data);
-        console.log('Hora:', hora);
-        console.log('Local:', local);
+        if (!hora || !local) {
+            alert('Preencha todos os campos antes de confirmar.');
+            return;
+        }
+
+        const novoAgendamento = {
+            id: Date.now(),
+            data: data.toLocaleDateString('pt-BR'),
+            hora,
+            local,
+        };
+
+        const agendamentosExistentes = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        agendamentosExistentes.push(novoAgendamento);
+        localStorage.setItem('agendamentos', JSON.stringify(agendamentosExistentes));
         navigate('/agendamento');
     };
 
@@ -35,8 +47,9 @@ function NovoAgendamento() {
                             onChange={(date) => setData(date)}
                             inline
                             calendarStartDay={1}
-                            locale="pt-BR"
+                            locale="pt-BR" 
                             dateFormat="dd/MM/yyyy"
+                            minDate={new Date()}
                         />
                     </div>
                     <input
@@ -76,4 +89,4 @@ function NovoAgendamento() {
     );
 }
 
-export default NovoAgendamento;*/
+export default NovoAgendamento;

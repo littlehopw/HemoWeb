@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../../assets/hemowweb-logo-blackwhite.png';
 import HomeIcon from '../../assets/icons/perfil.svg';
 import NotificationIcon from '../../assets/icons/notificacoes.svg';
-import HistoryIcon from '../../assets/icons/historico.svg';
 import CalendarIcon from '../../assets/icons/agendamento.svg';
 import FAQIcon from '../../assets/icons/faq.svg';
 
@@ -21,10 +20,6 @@ function Sidebar() {
                     <a href="/notificacao" className="flex flex-col items-center">
                         <img src={NotificationIcon} alt="Notificações" className="w-8 h-8" />
                         <span className="hidden md:block text-sm mt-1">Notificações</span>
-                    </a>
-                    <a href="/historico" className="flex flex-col items-center">
-                        <img src={HistoryIcon} alt="Histórico" className="w-8 h-8" />
-                        <span className="hidden md:block text-sm mt-1">Histórico</span>
                     </a>
                     <a href="/agendamento" className="flex flex-col items-center">
                         <img src={CalendarIcon} alt="Agendamento" className="w-8 h-8" />
