@@ -30,7 +30,6 @@ prisma.$connect()
     console.error("❌ Falha ao conectar com o banco via Prisma:", err);
   });
 
-// Encerra conexões Prisma ao finalizar
 process.on('SIGINT', async () => {
   await prisma.$disconnect();
   process.exit(0);

@@ -17,6 +17,7 @@ export const getProfile = async (req, res) => {
         sexo: true,
         data_nascimento: true,
         notificacoes: true,
+        icone_fk: true,
         data_criacao: true,
         data_modificacao: true
       }
@@ -43,7 +44,8 @@ export const updateProfile = async (req, res) => {
     medula_ossea,
     data_nascimento,
     notificacoes,
-    sexo
+    sexo,
+    icone_fk
   } = req.body;
 
   try {
@@ -57,6 +59,7 @@ export const updateProfile = async (req, res) => {
     if (data_nascimento !== undefined) data.data_nascimento = new Date(data_nascimento);
     if (notificacoes !== undefined) data.notificacoes = notificacoes;
     if (sexo !== undefined) data.sexo = sexo;
+    if (icone_fk !== undefined) data.icone_fk = icone_fk;
 
     data.data_modificacao = new Date();
 
@@ -72,6 +75,7 @@ export const updateProfile = async (req, res) => {
         sexo: true,
         data_nascimento: true,
         notificacoes: true,
+        icone_fk: true,
         data_criacao: true,
         data_modificacao: true
       }

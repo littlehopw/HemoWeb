@@ -2,7 +2,6 @@
 
 const API_URL = "/api";
 
-// Cadastro de novo usuário
 export async function cadastrar(userData) {
   const response = await fetch(`${API_URL}/auth/cadastro`, {
     method: "POST",
@@ -19,13 +18,11 @@ export async function cadastrar(userData) {
 
   const data = await response.json();
 
-  // Salva token e dados do usuário no localStorage
   localStorage.setItem("token", data.token);
   localStorage.setItem("usuario", JSON.stringify(data.usuario));
   return data;
 }
 
-// Login do usuário
 export async function login(email, senha) {
   const response = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
@@ -42,13 +39,11 @@ export async function login(email, senha) {
 
   const data = await response.json();
 
-  // Salva token e dados do usuário no localStorage
   localStorage.setItem("token", data.token);
   localStorage.setItem("usuario", JSON.stringify(data.usuario));
   return data;
 }
 
-// Atualização do perfil
 export async function atualizarPerfil(dadosAtualizados) {
   const token = localStorage.getItem("token");
 

@@ -19,7 +19,6 @@ export const cadastro = async (req, res) => {
   } = req.body;
 
   try {
-    // Verifica se o e-mail já existe
     const usuarioExistente = await prisma.usuario.findUnique({
       where: { email }
     });
@@ -28,10 +27,8 @@ export const cadastro = async (req, res) => {
       return res.status(409).json({ error: 'E-mail já está em uso.' });
     }
 
-    // Criptografa a senha
     const hashedPassword = await bcrypt.hash(senha, saltRounds);
 
-    // Cria o usuário
     const novoUsuario = await prisma.usuario.create({
       data: {
         nome,
@@ -41,11 +38,9 @@ export const cadastro = async (req, res) => {
         tipo_sanguineo,
         data_nascimento: new Date(data_nascimento),
         notificacoes,
-        sexo,
       },
     });
 
-    // Remove a senha antes de retornar
     const { senha: _, ...usuarioSemSenha } = novoUsuario;
     res.status(201).json(usuarioSemSenha);
 

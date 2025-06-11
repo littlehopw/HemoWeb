@@ -8,11 +8,11 @@ model Usuario {
   data_nascimento  DateTime
   notificacoes     Boolean       @default(true)
   sexo             String
-  icone_fk         Int
+  icone_fk         Int?
   data_criacao     DateTime      @default(now())
   data_modificacao DateTime      @updatedAt
   agendamentos     Agendamento[]
-  icone            Icone         @relation(fields: [icone_fk], references: [id], onDelete: Cascade)
+  icone            Icone?         @relation(fields: [icone_fk], references: [id], onDelete: Cascade)
   Notificacao      Notificacao[]
 }
 
