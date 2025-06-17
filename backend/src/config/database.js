@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log('🔍 Variáveis de ambiente:', {
+console.log('Variáveis de ambiente:', {
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
@@ -23,7 +23,7 @@ const pool = new Pool({
 });
 
 pool.connect()
-  .then(() => console.log('✅ Conectado ao banco de dados PostgreSQL'))
-  .catch((err) => console.error('❌ Erro ao conectar ao banco:', err));
+  .then(() => console.log('Conectado ao banco de dados PostgreSQL'))
+  .catch((err) => console.error('Erro ao conectar ao banco:', err));
 
 export default pool;
