@@ -1,8 +1,8 @@
 import authMiddleware from '../middlewares/authMiddleware.js';
+import express from 'express';
+import iconeController from '../controllers/iconeController.js';
 
-const express = require("express");
 const router = express.Router();
-const iconeController = require("../controllers/iconeController");
 
 /**
  * @swagger
@@ -71,4 +71,4 @@ router.put("/:id", authMiddleware, iconeController.update);
  */
 router.delete("/:id", authMiddleware, iconeController.delete);
 
-module.exports = router;
+export default router;

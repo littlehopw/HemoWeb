@@ -1,4 +1,4 @@
-const prisma = require("../prisma/client");
+import prisma from '../prisma/client.js';
 
 const hemocentrosController = {
   // Listar todos
@@ -56,4 +56,4 @@ const hemocentrosController = {
   },
 }
 
-module.exports = hemocentrosController;
+export default hemocentrosController;

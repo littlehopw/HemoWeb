@@ -1,5 +1,3 @@
-// src/services/api.js
-
 const API_URL = "/api";
 
 export async function cadastrar(userData) {
@@ -38,11 +36,11 @@ export async function login(email, senha) {
   }
 
   const data = await response.json();
-
   localStorage.setItem("token", data.token);
   localStorage.setItem("usuario", JSON.stringify(data.usuario));
   return data;
 }
+
 
 export async function atualizarPerfil(dadosAtualizados) {
   const token = localStorage.getItem("token");
