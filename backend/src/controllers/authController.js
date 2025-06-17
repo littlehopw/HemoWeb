@@ -2,11 +2,13 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import prisma from '../prisma/client.js';
 
-
 const saltRounds = 10;
 const jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
 
 export const cadastro = async (req, res) => {
+
+  console.log('Requisição cadastro:', req.body);
+
   const {
     nome,
     senha,
@@ -38,7 +40,7 @@ export const cadastro = async (req, res) => {
         tipo_sanguineo,
         data_nascimento: new Date(data_nascimento),
         notificacoes,
-	sexo,
+        sexo,
       },
     });
 
@@ -52,6 +54,8 @@ export const cadastro = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  console.log('Requisição login:', req.body);
+
   const { email, senha } = req.body;
 
   try {
@@ -63,11 +67,18 @@ export const login = async (req, res) => {
       return res.status(401).json({ error: 'Email inválido ou senha' });
     }
 
-    const isMatch = await bcrypt.compare(senha, usuario.senha);
+    // ==== INÍCIO DA MODIFICAÇÃO PARA SUPORTE A LOGIN SOCIAL ====
+    // Se a senha estiver vazia, assumimos que é um login social confiável
+    if (!senha) {
+      console.log('Login social detectado, ignorando verificação de senha');
+    } else {
+      const isMatch = await bcrypt.compare(senha, usuario.senha);
 
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Email inválido ou senha' });
+      if (!isMatch) {
+        return res.status(401).json({ error: 'Email inválido ou senha' });
+      }
     }
+    // ==== FIM DA MODIFICAÇÃO PARA SUPORTE A LOGIN SOCIAL ====
 
     const token = jwt.sign(
       { id: usuario.id, email: usuario.email },
