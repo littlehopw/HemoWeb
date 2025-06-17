@@ -1,9 +1,8 @@
+import authMiddleware from '../middlewares/authMiddleware.js';
+
 const express = require("express");
-
 const router = express.Router();
-
 const agendamentoController = require("../controllers/agendamentoController");
-
 
 /**
  * @swagger
@@ -23,7 +22,7 @@ const agendamentoController = require("../controllers/agendamentoController");
  *         description: Lista de agendamento
  */
 
-router.get("/", agendamentoController.getAll);
+router.get("/", authMiddleware, agendamentoController.getAll);
 
 /**
  * @swagger
@@ -35,7 +34,7 @@ router.get("/", agendamentoController.getAll);
  *       200:
  *         description: Agendamento específico
  */
-router.get("/:id", agendamentoController.getOne);
+router.get("/:id", authMiddleware, agendamentoController.getOne);
 
 /**
  * @swagger
@@ -47,7 +46,7 @@ router.get("/:id", agendamentoController.getOne);
  *       200:
  *         description: Agendamento Criado
  */
-router.post("/", agendamentoController.create);
+router.post("/", authMiddleware, agendamentoController.create);
 
 /**
  * @swagger
@@ -59,7 +58,7 @@ router.post("/", agendamentoController.create);
  *       200:
  *         description: Agendamento atualizado
  */
-router.put("/:id", agendamentoController.update);
+router.put("/:id", authMiddleware, agendamentoController.update);
 
 /**
  * @swagger
@@ -71,6 +70,6 @@ router.put("/:id", agendamentoController.update);
  *       200:
  *         description: Agendamento excluído
  */
-router.delete("/:id", agendamentoController.delete);
+router.delete("/:id", authMiddleware, agendamentoController.delete);
 
 module.exports = router;

@@ -1,7 +1,7 @@
+import authMiddleware from '../middlewares/authMiddleware.js';
+
 const express = require("express");
-
 const router = express.Router();
-
 const hemocentrosController = require("../controllers/hemocentrosController");
 
 /**
@@ -21,7 +21,7 @@ const hemocentrosController = require("../controllers/hemocentrosController");
  *       200:
  *         description: Lista de Hemocentros
  */
-router.get("/", hemocentrosController.getAll);
+router.get("/", authMiddleware, hemocentrosController.getAll);
 
 /**
  * @swagger
@@ -33,7 +33,7 @@ router.get("/", hemocentrosController.getAll);
  *       200:
  *         description: Hemocentro específico
  */
-router.get("/:id", hemocentrosController.getOne);
+router.get("/:id", authMiddleware, hemocentrosController.getOne);
 
 /**
  * @swagger
@@ -45,7 +45,7 @@ router.get("/:id", hemocentrosController.getOne);
  *       200:
  *         description: Hemocentro criado
  */
-router.post("/", hemocentrosController.create);
+router.post("/", authMiddleware, hemocentrosController.create);
 
 /**
  * @swagger
@@ -57,7 +57,7 @@ router.post("/", hemocentrosController.create);
  *       200:
  *         description: Hemocentros atualizado
  */
-router.put("/:id", hemocentrosController.update);
+router.put("/:id", authMiddleware, hemocentrosController.update);
 
 /**
  * @swagger
@@ -69,6 +69,6 @@ router.put("/:id", hemocentrosController.update);
  *       200:
  *         description: Hemocentro excluído
  */
-router.delete("/:id", hemocentrosController.delete);
+router.delete("/:id", authMiddleware, hemocentrosController.delete);
 
 module.exports = router;

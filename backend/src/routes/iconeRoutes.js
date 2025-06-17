@@ -1,9 +1,8 @@
+import authMiddleware from '../middlewares/authMiddleware.js';
+
 const express = require("express");
-
 const router = express.Router();
-
 const iconeController = require("../controllers/iconeController");
-
 
 /**
  * @swagger
@@ -22,7 +21,7 @@ const iconeController = require("../controllers/iconeController");
  *       200:
  *         description: Lista de ícones
  */
-router.get("/", iconeController.getAll);
+router.get("/", authMiddleware, iconeController.getAll);
 
 /**
  * @swagger
@@ -34,7 +33,7 @@ router.get("/", iconeController.getAll);
  *       200:
  *         description: Lista ícone específico
  */
-router.get("/:id", iconeController.getOne);
+router.get("/:id", authMiddleware, iconeController.getOne);
 
 /**
  * @swagger
@@ -46,7 +45,7 @@ router.get("/:id", iconeController.getOne);
  *       200:
  *         description: Cria ícone específico
  */
-router.post("/", iconeController.create);
+router.post("/", authMiddleware, iconeController.create);
 
 /**
  * @swagger
@@ -58,7 +57,7 @@ router.post("/", iconeController.create);
  *       200:
  *         description: Atualiza ícone específico
  */
-router.put("/:id", iconeController.update);
+router.put("/:id", authMiddleware, iconeController.update);
 
 /**
  * @swagger
@@ -70,6 +69,6 @@ router.put("/:id", iconeController.update);
  *       200:
  *         description: Deleta ícone específico
  */
-router.delete("/:id", iconeController.delete);
+router.delete("/:id", authMiddleware, iconeController.delete);
 
 module.exports = router;

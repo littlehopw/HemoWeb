@@ -1,9 +1,8 @@
+import authMiddleware from '../middlewares/authMiddleware.js';
+
 const express = require("express");
-
 const router = express.Router();
-
 const notificacaoController = require("../controllers/notificacaoController");
-
 
 /**
  * @swagger
@@ -23,7 +22,7 @@ const notificacaoController = require("../controllers/notificacaoController");
  *       200:
  *         description: Lista de notificação
  */
-router.get("/", notificacaoController.getAll);
+router.get("/", authMiddleware, notificacaoController.getAll);
 
 /**
  * @swagger
@@ -35,7 +34,7 @@ router.get("/", notificacaoController.getAll);
  *       200:
  *         description: Notificação específica
  */
-router.get("/:id", notificacaoController.getOne);
+router.get("/:id", authMiddleware, notificacaoController.getOne);
 
 /**
  * @swagger
@@ -47,7 +46,7 @@ router.get("/:id", notificacaoController.getOne);
  *       200:
  *         description: Notificação criada
  */
-router.post("/", notificacaoController.create);
+router.post("/", authMiddleware, notificacaoController.create);
 
 /**
  * @swagger
@@ -59,7 +58,7 @@ router.post("/", notificacaoController.create);
  *       200:
  *         description: Notificação atualizada
  */
-router.put("/:id", notificacaoController.update);
+router.put("/:id", authMiddleware, notificacaoController.update);
 
 /**
  * @swagger
@@ -71,6 +70,6 @@ router.put("/:id", notificacaoController.update);
  *       200:
  *         description: Notificação excluída
  */
-router.delete("/:id", notificacaoController.delete);
+router.delete("/:id", authMiddleware, notificacaoController.delete);
 
 module.exports = router;
