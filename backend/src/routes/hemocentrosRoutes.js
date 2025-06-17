@@ -1,8 +1,8 @@
 import authMiddleware from '../middlewares/authMiddleware.js';
+import express from 'express';
+import hemocentrosController from '../controllers/hemocentrosController.js';
 
-const express = require("express");
 const router = express.Router();
-const hemocentrosController = require("../controllers/hemocentrosController");
 
 /**
  * @swagger
@@ -71,4 +71,4 @@ router.put("/:id", authMiddleware, hemocentrosController.update);
  */
 router.delete("/:id", authMiddleware, hemocentrosController.delete);
 
-module.exports = router;
+export default router;

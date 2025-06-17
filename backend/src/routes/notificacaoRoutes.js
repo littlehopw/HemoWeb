@@ -1,8 +1,8 @@
 import authMiddleware from '../middlewares/authMiddleware.js';
+import express from 'express';
+import notificacaoController from '../controllers/notificacaoController.js';
 
-const express = require("express");
 const router = express.Router();
-const notificacaoController = require("../controllers/notificacaoController");
 
 /**
  * @swagger
@@ -72,4 +72,4 @@ router.put("/:id", authMiddleware, notificacaoController.update);
  */
 router.delete("/:id", authMiddleware, notificacaoController.delete);
 
-module.exports = router;
+export default router;

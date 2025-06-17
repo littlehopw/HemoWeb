@@ -1,4 +1,4 @@
-const prisma = require("../prisma/client");
+import prisma from '../prisma/client.js';
 
 const iconeController = {
   // Listar todos
@@ -56,4 +56,4 @@ const iconeController = {
   },
 }
 
-module.exports = iconeController;
+export default iconeController;

@@ -1,4 +1,4 @@
-const prisma = require("../prisma/client");
+import prisma from '../prisma/client.js';
 
 const agendamentoController = {
   // Listar todos
@@ -56,4 +56,4 @@ const agendamentoController = {
   },
 }
 
-module.exports = agendamentoController;
+export default agendamentoController;

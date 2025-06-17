@@ -1,8 +1,8 @@
 import authMiddleware from '../middlewares/authMiddleware.js';
+import express from 'express';
+import agendamentoController from '../controllers/agendamentoController.js';
 
-const express = require("express");
 const router = express.Router();
-const agendamentoController = require("../controllers/agendamentoController");
 
 /**
  * @swagger
@@ -72,4 +72,4 @@ router.put("/:id", authMiddleware, agendamentoController.update);
  */
 router.delete("/:id", authMiddleware, agendamentoController.delete);
 
-module.exports = router;
+export default router;

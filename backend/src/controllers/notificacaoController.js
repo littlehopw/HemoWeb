@@ -1,4 +1,4 @@
-const prisma = require("../prisma/client");
+import prisma from '../prisma/client.js';
 
 const notificacaoController = {
   // Listar todos
@@ -56,4 +56,4 @@ const notificacaoController = {
   },
 }
 
-module.exports = notificacaoController;
+export default notificacaoController;
