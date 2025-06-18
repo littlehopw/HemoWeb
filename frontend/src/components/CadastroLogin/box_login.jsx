@@ -128,20 +128,6 @@ function LoginBox() {
             className="w-5 h-5"
           />
         </button>
-        <button
-          className={`p-1.5 bg-gray-100 rounded-full hover:bg-gray-200 ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          type="button"
-          onClick={() => handleSocialLogin(facebookProvider)}
-          disabled={loading}
-        >
-          <img
-            src="https://www.svgrepo.com/show/452196/facebook-1.svg"
-            alt="Facebook"
-            className="w-5 h-5"
-          />
-        </button>
       </div>
     </div>
   );

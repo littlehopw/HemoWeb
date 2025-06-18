@@ -200,16 +200,6 @@ function CadastroBox() {
             className="w-5 h-5"
           />
         </button>
-        <button
-          onClick={() => handleSocialLogin(facebookProvider)}
-          className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200"
-        >
-          <img
-            src="https://www.svgrepo.com/show/452196/facebook-1.svg"
-            alt="Facebook"
-            className="w-5 h-5"
-          />
-        </button>
       </div>
     </div>
   );
