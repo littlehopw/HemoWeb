@@ -15,24 +15,44 @@ function Perfil() {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [icones, setIcones] = useState([]);
+  const [iconeSelecionado, setIconeSelecionado] = useState(null);
 
   useEffect(() => {
-    try {
-      const userFromStorage = localStorage.getItem("usuario");
-      if (userFromStorage) {
-        const user = JSON.parse(userFromStorage);
-        setUserData({
-          nome: user.nome || "",
-          email: user.email || "",
-          tipoSanguineo: user.tipo_sanguineo || "",
-          medula: user.medula_ossea || false,
-          nascimento: user.data_nascimento ? user.data_nascimento.slice(0, 10) : "",
-          sexo: user.sexo || ""
+    async function carregarDados() {
+      try {
+        const userFromStorage = localStorage.getItem("usuario");
+        if (userFromStorage) {
+          const user = JSON.parse(userFromStorage);
+          setUserData({
+            nome: user.nome || "",
+            email: user.email || "",
+            tipoSanguineo: user.tipo_sanguineo || "",
+            medula: user.medula_ossea || false,
+            nascimento: user.data_nascimento ? user.data_nascimento.slice(0, 10) : "",
+            sexo: user.sexo || ""
+          });
+
+          if (user.icone_fk) {
+            setIconeSelecionado(user.icone_fk);
+          }
+        }
+
+        const token = localStorage.getItem("token");
+        const res = await fetch("/api/icone", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
+
+        const data = await res.json();
+        setIcones(data);
+      } catch (error) {
+        console.error("Erro ao carregar dados do perfil ou ícones:", error);
       }
-    } catch (error) {
-      console.error("Erro ao carregar usuário do localStorage:", error);
     }
+
+    carregarDados();
   }, []);
 
   const handleEdit = () => setIsEditing(true);
@@ -49,6 +69,10 @@ function Perfil() {
         nascimento: user.data_nascimento ? user.data_nascimento.slice(0, 10) : "",
         sexo: user.sexo || ""
       });
+
+      if (user.icone_fk) {
+        setIconeSelecionado(user.icone_fk);
+      }
     }
     setIsEditing(false);
   };
@@ -62,7 +86,8 @@ function Perfil() {
         tipo_sanguineo: userData.tipoSanguineo,
         medula_ossea: userData.medula,
         data_nascimento: userData.nascimento,
-        sexo: userData.sexo
+        sexo: userData.sexo,
+        icone_fk: iconeSelecionado,
       };
 
       const usuarioAtualizado = await atualizarPerfil(dadosAtualizados);
@@ -81,26 +106,39 @@ function Perfil() {
     <div className="flex">
       <Sidebar />
       <div className="bg-white min-h-screen flex-1 flex flex-col">
-        <div className="relative bg-[#cfe8fc] h-40 flex items-center justify-center">
-          <div className="absolute top-20">
+        <div className="relative bg-[#cfe8fc] h-56 flex items-center justify-center">
+          <div className="absolute top-20 flex flex-col items-center">
             <img
-              src="https://via.placeholder.com/150"
-              className="rounded-full border-4 border-white w-36 h-36 object-cover"
+              src={
+                icones.find((i) => i.id === iconeSelecionado)?.url ||
+                "https://via.placeholder.com/150"
+              }
+              alt="Ícone de perfil"
+              className="rounded-full border-4 border-white w-36 h-36 object-cover mb-2"
             />
+
+            {isEditing && (
+              <div className="flex flex-wrap gap-4 justify-center mt-4">
+                {icones.map((icone) => (
+                  <img
+                    key={icone.id}
+                    src={icone.url}
+                    alt={`Ícone ${icone.id}`}
+                    onClick={() => setIconeSelecionado(icone.id)}
+                    className={`w-14 h-14 rounded-full cursor-pointer border-4 ${
+                      iconeSelecionado === icone.id
+                        ? "border-blue-700"
+                        : "border-transparent"
+                    } hover:opacity-80 transition`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         <div className="flex flex-col items-center w-full px-8 mt-24">
           <div className="flex-1 space-y-4 w-full max-w-5xl">
-            <div className="flex justify-center">
-              <button
-                className="bg-blue-700 text-white font-bold py-2 px-6 rounded-full mb-8 hover:bg-blue-800 transition"
-                onClick={() => alert("Funcionalidade de alterar foto ainda não implementada.")}
-              >
-                Editar foto
-              </button>
-            </div>
-
             <input
               type="text"
               placeholder="Nome"
@@ -131,11 +169,10 @@ function Perfil() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="date"
-                placeholder="Data de nascimento"
                 value={userData.nascimento}
                 onChange={(e) => setUserData({ ...userData, nascimento: e.target.value })}
                 disabled={!isEditing}
-                className="w-full p-3 border rounded placeholder-gray-400"
+                className="w-full p-3 border rounded text-gray-700"
               />
 
               <select

@@ -23,7 +23,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/test', testRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
-app.use("/icone", iconeRoutes);
+app.use("/api/icone", iconeRoutes);
 app.use("/hemocentros", hemocentrosRoutes);
 app.use("/agendamento", agendamentoRoutes);
 app.use("/notificacao", notificacaoRoutes);
