@@ -1,10 +1,17 @@
 import "../../../src/App.css";
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { cadastrar } from "../../services/api";
+import {
+  auth,
+  googleProvider,
+  facebookProvider,
+} from "../../firebase/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 function CadastroBox() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -15,7 +22,6 @@ function CadastroBox() {
     notificacoes: true,
     sexo: "",
   });
-
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,6 +36,26 @@ function CadastroBox() {
       navigate("/login");
     } catch (err) {
       alert("Erro: " + err.message);
+    }
+  };
+
+  const handleSocialLogin = async (provider) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        nome: user.displayName || "",
+        email: user.email || "",
+        senha: "",
+      }));
+
+      alert(
+        "Associação realizada! Complete o formulário para finalizar o cadastro."
+      );
+    } catch (err) {
+      alert("Erro ao conectar com rede social: " + err.message);
     }
   };
 
@@ -143,7 +169,14 @@ function CadastroBox() {
         <div className="flex items-center text-xs">
           <input type="checkbox" className="mr-2" />
           <span>
-            Concordo com o <a className="text-blue-600 underline" href="#">Termo de Uso</a> e <a className="text-blue-600 underline" href="#">Política de Privacidade</a>
+            Concordo com o{" "}
+            <a className="text-blue-600 underline" href="#">
+              Termo de Uso
+            </a>{" "}
+            e{" "}
+            <a className="text-blue-600 underline" href="#">
+              Política de Privacidade
+            </a>
           </span>
         </div>
 
@@ -154,13 +187,18 @@ function CadastroBox() {
           Cadastre-se
         </button>
       </form>
+
       <div className="mt-4 text-xs text-gray-500">OU CADASTRE-SE COM:</div>
       <div className="flex justify-center gap-3 mt-1.5">
-        <button className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
-        </button>
-        <button className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200">
-          <img src="https://www.svgrepo.com/show/452196/facebook-1.svg" alt="Facebook" className="w-5 h-5" />
+        <button
+          onClick={() => handleSocialLogin(googleProvider)}
+          className="p-1.5 bg-gray-100 rounded-full hover:bg-gray-200"
+        >
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />
         </button>
       </div>
     </div>
