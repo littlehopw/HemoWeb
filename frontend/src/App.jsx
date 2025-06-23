@@ -13,6 +13,7 @@ import Perfil from './pages/Perfil/perfil';
 import Notificacao from './pages/Notificação/notificacao';
 import Agendamento from './pages/Agendamento/agendamento';
 import NovoAgendamento from './pages/Agendamento/novo_agendamento';
+import EditarAgendamento from './pages/Agendamento/editar_agendamento';
 import FAQ from './pages/FAQ/faq';
 
 export default function App() {
@@ -33,8 +34,11 @@ export default function App() {
 
         <Route path="perfil" element={<Perfil />} />
         <Route path="notificacao" element={<Notificacao />} />
+
         <Route path="agendamento" element={<Agendamento />} />
         <Route path="novo_agendamento" element={<NovoAgendamento />} />
+        <Route path="editar_agendamento/:id" element={<EditarAgendamento />} />
+
         <Route path="faq" element={<FAQ />} />
       </Routes>
     </div>

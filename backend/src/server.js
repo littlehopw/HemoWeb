@@ -23,11 +23,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/test', testRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
-app.use("/icone", iconeRoutes);
-app.use("/hemocentros", hemocentrosRoutes);
-app.use("/agendamento", agendamentoRoutes);
-app.use("/notificacao", notificacaoRoutes);
-app.get('/ping', testConnection);
+app.use("/api/icone", iconeRoutes);
+app.use("/api/hemocentros", hemocentrosRoutes);
+app.use("/api/agendamento", agendamentoRoutes);
+app.use("/api/notificacao", notificacaoRoutes);
+app.get('/api/ping', testConnection);
 
 prisma.$connect()
   .then(() => {
