@@ -52,10 +52,13 @@ function Notificacao() {
   const mensagensExibidas = abaAtiva === 'novas' ? mensagensNovas : mensagensLidas;
 
   return (
-    <div className="flex">
-      <div className="hidden md:block">
+    <div className="flex min-h-screen"> {/* Altura mínima 100vh para o container principal */}
+      {/* Sidebar desktop com altura total da tela */}
+      <div className="hidden md:block h-max">
         <Sidebar />
       </div>
+
+      {/* Menu mobile fixo no topo */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-blue-900 h-16 flex items-center justify-between px-4 shadow-md z-10">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
@@ -66,6 +69,7 @@ function Notificacao() {
         </button>
         <div className="flex items-center"></div>
       </div>
+
       {menuOpen && (
         <div className="fixed top-16 left-0 w-full bg-blue-900 text-white shadow-lg z-20">
           <ul className="flex flex-col p-4 space-y-4">
@@ -93,29 +97,39 @@ function Notificacao() {
         </div>
       )}
 
+      {/* Conteúdo principal */}
       <div className="bg-white min-h-screen flex-1 flex flex-col">
-        <div className="hidden md:flex relative bg-[#cfe8fc] h-40 items-center justify-center md:justify-end pr-0 md:pr-16">
-          <div className="absolute top-20 md:mr-[60px]"> </div>
+        <div className="relative bg-white md:bg-[#cfe8fc] h-40 flex items-center justify-center w-full mt-12 md:mt-0">
+          <h1
+            className="text-blue-900 font-bold"
+            style={{
+              fontFamily: "var(--menu-poppins)",
+              fontSize: "2rem",
+              lineHeight: "2.5rem",
+            }}
+          >
+            Notificações
+          </h1>
         </div>
-        <div
-          className="flex flex-col items-center w-full px-4 mt-24 md:mt-10 flex-grow relative"
-        >
-          <div className="mt-8 flex gap-4 mb-4 border-b w-[70%] mx-auto">
+        <div className="flex flex-col items-center w-full px-4 mt-1 md:mt-10 flex-grow relative">
+          <div className="flex gap-4 mb-4 border-b w-[70%] mx-auto">
             <button
               onClick={() => setAbaAtiva('novas')}
-              className={`pb-2 ${abaAtiva === 'novas'
-                ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
-                : 'text-gray-500 hover:text-blue-600'
-                }`}
+              className={`pb-2 ${
+                abaAtiva === 'novas'
+                  ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
+                  : 'text-gray-500 hover:text-blue-600'
+              }`}
             >
               Novas
             </button>
             <button
               onClick={() => setAbaAtiva('lidas')}
-              className={`pb-2 ${abaAtiva === 'lidas'
-                ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
-                : 'text-gray-500 hover:text-blue-600'
-                }`}
+              className={`pb-2 ${
+                abaAtiva === 'lidas'
+                  ? 'border-b-2 border-blue-600 text-blue-600 font-bold'
+                  : 'text-gray-500 hover:text-blue-600'
+              }`}
             >
               Lidas
             </button>
@@ -129,23 +143,22 @@ function Notificacao() {
               />
             ))}
           </div>
-          <div
-            className="flex flex-col items-center absolute left-1/2 transform -translate-x-1/2 w-[90%] md:w-auto"
-            style={{ bottom: '80px' }}
-          >
-            <div className="flex flex-wrap gap-6 justify-center">
-              <button className="bg-blue-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
-                Ler tudo
-              </button>
-              <button className="bg-red-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
-                Excluir tudo
-              </button>
-            </div>
+
+          {/* Botões agora abaixo dos cards */}
+          <div className="flex flex-wrap gap-6 justify-center mt-14 mb-4">
+            <button className="bg-blue-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
+              Ler tudo
+            </button>
+            <button className="bg-red-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
+              Excluir tudo
+            </button>
           </div>
+
+          {/* Footer */}
+          <p className="text-gray-400 text-xs mt-10 mb-4 text-center w-full">
+            &copy; 2025 HemoWeb. Todos os direitos reservados.
+          </p>
         </div>
-        <p className="text-gray-400 text-xs mt-10 mb-4 text-center">
-          &copy; 2025 HemoWeb. Todos os direitos reservados.
-        </p>
       </div>
     </div>
   );

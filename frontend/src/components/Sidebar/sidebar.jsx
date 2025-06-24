@@ -10,7 +10,7 @@ function Sidebar() {
         <div className="bg-blue-900 text-white w-20 md:w-40 min-h-screen flex flex-col items-center py-10">
             <div>
                 <div className="mb-20">
-                    <img src={logo} alt="HemoWeb Logo" className="w-22 md:w-30" />
+                    <img src={logo} alt="HemoWeb Logo" className="w-20 md:w-32" />
                 </div>
                 <nav className="flex flex-col space-y-16 w-full items-center">
                     <a href="/perfil" className="flex flex-col items-center">
