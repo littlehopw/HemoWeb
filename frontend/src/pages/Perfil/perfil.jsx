@@ -11,8 +11,10 @@ function Perfil() {
     tipoSanguineo: "",
     medula: false,
     nascimento: "",
-    sexo: ""
+    sexo: "",
+    notificacoes: true,
   });
+
 
   const [isEditing, setIsEditing] = useState(false);
   const [icones, setIcones] = useState([]);
@@ -30,7 +32,8 @@ function Perfil() {
             tipoSanguineo: user.tipo_sanguineo || "",
             medula: user.medula_ossea || false,
             nascimento: user.data_nascimento ? user.data_nascimento.slice(0, 10) : "",
-            sexo: user.sexo || ""
+            sexo: user.sexo || "",
+            notificacoes: user.notificacoes ?? true
           });
 
           if (user.icone_fk) {
@@ -88,6 +91,7 @@ function Perfil() {
         data_nascimento: userData.nascimento,
         sexo: userData.sexo,
         icone_fk: iconeSelecionado,
+        notificacoes: userData.notificacoes,
       };
 
       const usuarioAtualizado = await atualizarPerfil(dadosAtualizados);
@@ -125,11 +129,10 @@ function Perfil() {
                     src={icone.url}
                     alt={`Ícone ${icone.id}`}
                     onClick={() => setIconeSelecionado(icone.id)}
-                    className={`w-14 h-14 rounded-full cursor-pointer border-4 ${
-                      iconeSelecionado === icone.id
-                        ? "border-blue-700"
-                        : "border-transparent"
-                    } hover:opacity-80 transition`}
+                    className={`w-14 h-14 rounded-full cursor-pointer border-4 ${iconeSelecionado === icone.id
+                      ? "border-blue-700"
+                      : "border-transparent"
+                      } hover:opacity-80 transition`}
                   />
                 ))}
               </div>
@@ -187,17 +190,6 @@ function Perfil() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={userData.medula}
-                  onChange={(e) => setUserData({ ...userData, medula: e.target.checked })}
-                  disabled={!isEditing}
-                  className="h-5 w-5"
-                />
-                <span className="text-gray-700">Doador de Medula Óssea</span>
-              </label>
-
               <select
                 value={userData.tipoSanguineo}
                 onChange={(e) => setUserData({ ...userData, tipoSanguineo: e.target.value })}
@@ -213,6 +205,28 @@ function Perfil() {
                 <option value="O+">O+</option>
                 <option value="O-">O-</option>
               </select>
+
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={userData.medula}
+                  onChange={(e) => setUserData({ ...userData, medula: e.target.checked })}
+                  disabled={!isEditing}
+                  className="h-5 w-5"
+                />
+                <span className="text-gray-700">Doador de Medula Óssea</span>
+              </label>
+
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={userData.notificacoes}
+                  onChange={(e) => setUserData({ ...userData, notificacoes: e.target.checked })}
+                  disabled={!isEditing}
+                  className="h-5 w-5"
+                />
+                <span className="text-gray-700">Receber notificações por e-mail</span>
+              </label>
             </div>
 
             <div className="flex flex-col md:flex-row gap-16 mt-8 justify-center">

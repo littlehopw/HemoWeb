@@ -13,7 +13,10 @@ import Perfil from './pages/Perfil/perfil';
 import Notificacao from './pages/Notificação/notificacao';
 import Agendamento from './pages/Agendamento/agendamento';
 import NovoAgendamento from './pages/Agendamento/novo_agendamento';
+import EditarAgendamento from './pages/Agendamento/editar_agendamento';
 import FAQ from './pages/FAQ/faq';
+import PoliticaPrivacidade from './pages/TermosPolitica/politica_privacidade';
+import TermosDeUso from './pages/TermosPolitica/termos_de_uso';
 
 export default function App() {
   return (
@@ -25,6 +28,8 @@ export default function App() {
         <Route path="verificacao" element={<Verificacao />} />
         <Route path="informacoes_extras" element={<InformacoesExtras />} />
         <Route path="confirmacao_cadastro" element={<ConfirmacaoCadastro />} />
+        <Route path="politica_privacidade" element={<PoliticaPrivacidade />} />
+        <Route path="termos_uso" element={<TermosDeUso />} />
 
         <Route path="login" element={<Login />} />
         <Route path="esqueci_minha_senha" element={<EsqueciMinhaSenha />} />
@@ -33,8 +38,11 @@ export default function App() {
 
         <Route path="perfil" element={<Perfil />} />
         <Route path="notificacao" element={<Notificacao />} />
+
         <Route path="agendamento" element={<Agendamento />} />
         <Route path="novo_agendamento" element={<NovoAgendamento />} />
+        <Route path="editar_agendamento/:id" element={<EditarAgendamento />} />
+
         <Route path="faq" element={<FAQ />} />
       </Routes>
     </div>
