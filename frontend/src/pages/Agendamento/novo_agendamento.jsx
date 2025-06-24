@@ -13,6 +13,8 @@ function NovoAgendamento() {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const navigate = useNavigate();
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
     useEffect(() => {
         async function fetchHemocentros() {
             const res = await fetch("/api/hemocentros", {
@@ -37,6 +39,13 @@ function NovoAgendamento() {
         fetchHemocentros();
         fetchAgendamento();
     }, [id]);
+
+    useEffect(() => {
+        document.body.style.overflow = menuOpen ? "hidden" : "auto";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [menuOpen]);
 
     const handleCancelar = () => navigate('/agendamento');
 
@@ -75,7 +84,34 @@ function NovoAgendamento() {
 
     return (
         <div className="flex">
-            <Sidebar />
+            <div className="hidden md:block">
+                <Sidebar />
+            </div>
+
+            {/* Menu mobile fixo */}
+            <div className="md:hidden fixed top-0 left-0 w-full bg-blue-900 h-16 flex items-center justify-between px-4 shadow-md z-10">
+                <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="text-white text-2xl focus:outline-none"
+                    aria-label="Abrir menu"
+                >
+                    ☰
+                </button>
+            </div>
+
+            {/* Dropdown menu mobile */}
+            {menuOpen && (
+                <div className="md:hidden fixed top-16 left-0 w-full bg-blue-900 text-white shadow-lg z-20">
+                    <ul className="flex flex-col p-4 space-y-4">
+                        <li><a href="/" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Home</a></li>
+                        <li><a href="/perfil" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Perfil</a></li>
+                        <li><a href="/notificacao" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Notificações</a></li>
+                        <li><a href="/agendamento" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Agendamento</a></li>
+                        <li><a href="/faq" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">FAQ</a></li>
+                    </ul>
+                </div>
+            )}
+
             <div className="flex-1 bg-white min-h-screen relative">
                 <div className="bg-[#cfe8fc] h-40 flex items-center justify-center" />
                 <div className="flex flex-col items-center justify-center mt-[-80px]">
