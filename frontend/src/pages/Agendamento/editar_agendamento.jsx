@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function NovoAgendamento() {
+function EditarAgendamento() {
     const [data, setData] = useState(new Date());
     const [hora, setHora] = useState('');
     const [hemocentroId, setHemocentroId] = useState('');
@@ -127,4 +127,4 @@ function NovoAgendamento() {
     );
 }
 
-export default NovoAgendamento;
+export default EditarAgendamento;
