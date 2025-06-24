@@ -191,6 +191,14 @@ function FAQ() {
             <ul className="flex flex-col p-4 space-y-4">
               <li>
                 <a
+                  href="/"
+                  className="hover:text-blue-300 cursor-pointer"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
                   href="/perfil"
                   className="hover:text-blue-300 cursor-pointer"
                 >

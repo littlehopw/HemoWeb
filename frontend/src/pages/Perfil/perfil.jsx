@@ -11,14 +11,13 @@ function Perfil() {
     tipoSanguineo: "",
     medula: false,
     nascimento: "",
-    sexo: "",
-    notificacoes: true,
+    sexo: ""
   });
-
 
   const [isEditing, setIsEditing] = useState(false);
   const [icones, setIcones] = useState([]);
   const [iconeSelecionado, setIconeSelecionado] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     async function carregarDados() {
@@ -32,8 +31,7 @@ function Perfil() {
             tipoSanguineo: user.tipo_sanguineo || "",
             medula: user.medula_ossea || false,
             nascimento: user.data_nascimento ? user.data_nascimento.slice(0, 10) : "",
-            sexo: user.sexo || "",
-            notificacoes: user.notificacoes ?? true
+            sexo: user.sexo || ""
           });
 
           if (user.icone_fk) {
@@ -57,6 +55,13 @@ function Perfil() {
 
     carregarDados();
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [menuOpen]);
 
   const handleEdit = () => setIsEditing(true);
 
@@ -91,7 +96,6 @@ function Perfil() {
         data_nascimento: userData.nascimento,
         sexo: userData.sexo,
         icone_fk: iconeSelecionado,
-        notificacoes: userData.notificacoes,
       };
 
       const usuarioAtualizado = await atualizarPerfil(dadosAtualizados);
@@ -107,40 +111,61 @@ function Perfil() {
   };
 
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="bg-white min-h-screen flex-1 flex flex-col">
-        <div className="relative bg-[#cfe8fc] h-56 flex items-center justify-center">
-          <div className="absolute top-20 flex flex-col items-center">
-            <img
-              src={
-                icones.find((i) => i.id === iconeSelecionado)?.url ||
-                "https://via.placeholder.com/150"
-              }
-              alt="Ícone de perfil"
-              className="rounded-full border-4 border-white w-36 h-36 object-cover mb-2"
-            />
+    <div className="flex min-h-screen">
+      {/* Sidebar desktop */}
+      <div className="hidden md:flex h-full">
+        <Sidebar />
+      </div>
 
-            {isEditing && (
-              <div className="flex flex-wrap gap-4 justify-center mt-4">
-                {icones.map((icone) => (
-                  <img
-                    key={icone.id}
-                    src={icone.url}
-                    alt={`Ícone ${icone.id}`}
-                    onClick={() => setIconeSelecionado(icone.id)}
-                    className={`w-14 h-14 rounded-full cursor-pointer border-4 ${iconeSelecionado === icone.id
-                      ? "border-blue-700"
-                      : "border-transparent"
-                      } hover:opacity-80 transition`}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+      {/* Menu mobile fixo */}
+      <div className="md:hidden fixed top-0 left-0 w-full bg-blue-900 h-16 flex items-center justify-between px-4 shadow-md z-10">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-white text-2xl focus:outline-none"
+          aria-label="Abrir menu"
+        >
+          ☰
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden fixed top-16 left-0 w-full bg-blue-900 text-white shadow-lg z-20">
+          <ul className="flex flex-col p-4 space-y-4">
+            <li><a href="/" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Home</a></li>
+            <li><a href="/perfil" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Perfil</a></li>
+            <li><a href="/notificacao" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Notificações</a></li>
+            <li><a href="/agendamento" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Agendamento</a></li>
+            <li><a href="/faq" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">FAQ</a></li>
+          </ul>
         </div>
+      )}
 
-        <div className="flex flex-col items-center w-full px-8 mt-24">
+      {/* Conteúdo principal */}
+      <div className="flex-1 flex flex-col bg-white min-h-screen">
+       <div className="relative bg-[#cfe8fc] h-40 flex items-center justify-center w-full mt-16 md:mt-0" >
+  <div className="flex flex-col items-center justify-center">
+    <img
+      src={icones.find((i) => i.id === iconeSelecionado)?.url || "https://via.placeholder.com/150"}
+      alt="Ícone de perfil"
+      className="rounded-full border-4 border-white w-36 h-36 object-cover mb-2 mt-4"
+    />
+    {isEditing && (
+      <div className="flex flex-wrap gap-4 justify-center mt-4">
+        {icones.map((icone) => (
+          <img
+            key={icone.id}
+            src={icone.url}
+            alt={`Ícone ${icone.id}`}
+            onClick={() => setIconeSelecionado(icone.id)}
+            className={`w-14 h-14 rounded-full cursor-pointer border-4 ${iconeSelecionado === icone.id ? "border-blue-700" : "border-transparent"} hover:opacity-80 transition`}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+        <div className="flex flex-col items-center w-full px-8 mt-12 md:mt-10 flex-grow">
           <div className="flex-1 space-y-4 w-full max-w-5xl">
             <input
               type="text"
@@ -150,7 +175,6 @@ function Perfil() {
               disabled={!isEditing}
               className="w-full p-3 border rounded placeholder-gray-400"
             />
-
             <input
               type="email"
               placeholder="Email"
@@ -159,7 +183,6 @@ function Perfil() {
               disabled={!isEditing}
               className="w-full p-3 border rounded placeholder-gray-400"
             />
-
             <input
               type="password"
               placeholder="Nova senha"
@@ -190,6 +213,17 @@ function Perfil() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={userData.medula}
+                  onChange={(e) => setUserData({ ...userData, medula: e.target.checked })}
+                  disabled={!isEditing}
+                  className="h-5 w-5"
+                />
+                <span className="text-gray-700">Doador de Medula Óssea</span>
+              </label>
+
               <select
                 value={userData.tipoSanguineo}
                 onChange={(e) => setUserData({ ...userData, tipoSanguineo: e.target.value })}
@@ -205,28 +239,6 @@ function Perfil() {
                 <option value="O+">O+</option>
                 <option value="O-">O-</option>
               </select>
-
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={userData.medula}
-                  onChange={(e) => setUserData({ ...userData, medula: e.target.checked })}
-                  disabled={!isEditing}
-                  className="h-5 w-5"
-                />
-                <span className="text-gray-700">Doador de Medula Óssea</span>
-              </label>
-
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={userData.notificacoes}
-                  onChange={(e) => setUserData({ ...userData, notificacoes: e.target.checked })}
-                  disabled={!isEditing}
-                  className="h-5 w-5"
-                />
-                <span className="text-gray-700">Receber notificações por e-mail</span>
-              </label>
             </div>
 
             <div className="flex flex-col md:flex-row gap-16 mt-8 justify-center">
@@ -256,6 +268,11 @@ function Perfil() {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <p className="text-gray-400 text-xs mt-10 mb-4 text-center">
+          &copy; 2025 HemoWeb. Todos os direitos reservados.
+        </p>
       </div>
     </div>
   );
