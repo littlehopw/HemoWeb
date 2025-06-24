@@ -11,6 +11,7 @@ import { signInWithPopup } from "firebase/auth";
 
 function CadastroBox() {
   const navigate = useNavigate();
+  const [termosAceitos, setTermosAceitos] = useState(false);
 
   const [form, setForm] = useState({
     nome: "",
@@ -23,6 +24,10 @@ function CadastroBox() {
     sexo: "",
   });
 
+  const handleCheckboxChange = () => {
+    setTermosAceitos(!termosAceitos);
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
@@ -30,6 +35,7 @@ function CadastroBox() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!termosAceitos) return;
     try {
       await cadastrar(form);
       alert("Usuário cadastrado com sucesso!");
@@ -51,9 +57,7 @@ function CadastroBox() {
         senha: "",
       }));
 
-      alert(
-        "Associação realizada! Complete o formulário para finalizar o cadastro."
-      );
+      alert("Associação realizada! Complete o formulário para finalizar o cadastro.");
     } catch (err) {
       alert("Erro ao conectar com rede social: " + err.message);
     }
@@ -136,7 +140,6 @@ function CadastroBox() {
           />
           <span>Sou doador de medula óssea</span>
         </div>
-
         <div className="text-sm">
           <span className="font-medium">Sexo:</span>
           <div className="flex gap-4 mt-1">
@@ -164,30 +167,37 @@ function CadastroBox() {
             </label>
           </div>
         </div>
-
-        <br />
-        <div className="flex items-center text-xs">
-          <input type="checkbox" className="mr-2" />
-          <span>
-            Concordo com o{" "}
-            <a className="text-blue-600 underline" href="#">
-              Termo de Uso
-            </a>{" "}
-            e{" "}
-            <a className="text-blue-600 underline" href="#">
+        <div className="mt-4 flex items-center space-x-2 text-xs">
+          <input
+            type="checkbox"
+            id="termos"
+            checked={termosAceitos}
+            onChange={handleCheckboxChange}
+            className="accent-blue-700"
+          />
+          <label htmlFor="termos" className="text-gray-700">
+            Eu aceito os{" "}
+            <Link to="/termos_uso" className="text-blue-600 hover:underline">
+              Termos de Uso
+            </Link>{" "}
+            e a{" "}
+            <Link to="/politica_privacidade" className="text-blue-600 hover:underline">
               Política de Privacidade
-            </a>
-          </span>
+            </Link>
+          </label>
         </div>
-
         <button
           type="submit"
-          className="w-full bg-blue-700 text-white py-1.5 text-sm rounded-md hover:bg-blue-800 transition"
+          disabled={!termosAceitos}
+          className={`w-full py-1.5 text-sm rounded-md transition ${
+            termosAceitos
+              ? "bg-blue-700 text-white hover:bg-blue-800"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
         >
           Cadastre-se
         </button>
       </form>
-
       <div className="mt-4 text-xs text-gray-500">OU CADASTRE-SE COM:</div>
       <div className="flex justify-center gap-3 mt-1.5">
         <button
