@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import '../../App.css';
 import { atualizarPerfil } from '../../services/api';
 import Sidebar from '../../components/Sidebar/sidebar.jsx';
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from '../../assets/icons/logout.png';
 
 function Perfil() {
   const [userData, setUserData] = useState({
@@ -11,13 +13,22 @@ function Perfil() {
     tipoSanguineo: "",
     medula: false,
     nascimento: "",
-    sexo: ""
+    sexo: "",
+    notificacoes: true,
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [icones, setIcones] = useState([]);
   const [iconeSelecionado, setIconeSelecionado] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    navigate("/login");
+  };
 
   useEffect(() => {
     async function carregarDados() {
@@ -31,14 +42,13 @@ function Perfil() {
             tipoSanguineo: user.tipo_sanguineo || "",
             medula: user.medula_ossea || false,
             nascimento: user.data_nascimento ? user.data_nascimento.slice(0, 10) : "",
-            sexo: user.sexo || ""
+            sexo: user.sexo || "",
+            notificacoes: user.notificacoes ?? true
           });
-
           if (user.icone_fk) {
             setIconeSelecionado(user.icone_fk);
           }
         }
-
         const token = localStorage.getItem("token");
         const res = await fetch("/api/icone", {
           headers: {
@@ -52,7 +62,6 @@ function Perfil() {
         console.error("Erro ao carregar dados do perfil ou ícones:", error);
       }
     }
-
     carregarDados();
   }, []);
 
@@ -112,12 +121,9 @@ function Perfil() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar desktop */}
       <div className="hidden md:flex h-full">
         <Sidebar />
       </div>
-
-      {/* Menu mobile fixo */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-blue-900 h-16 flex items-center justify-between px-4 shadow-md z-10">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
@@ -127,7 +133,6 @@ function Perfil() {
           ☰
         </button>
       </div>
-
       {menuOpen && (
         <div className="md:hidden fixed top-16 left-0 w-full bg-blue-900 text-white shadow-lg z-20">
           <ul className="flex flex-col p-4 space-y-4">
@@ -136,35 +141,65 @@ function Perfil() {
             <li><a href="/notificacao" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Notificações</a></li>
             <li><a href="/agendamento" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">Agendamento</a></li>
             <li><a href="/faq" onClick={() => setMenuOpen(false)} className="hover:text-blue-300">FAQ</a></li>
+            <li>
+              <button src={LogoutIcon}
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowLogoutModal(true);
+                }}
+                className="text-left w-full hover:text-blue-300"
+              >
+                Sair
+              </button>
+            </li>
           </ul>
         </div>
       )}
+      {showLogoutModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-80 text-center">
+            <h2 className="text-lg font-semibold mb-4 text-gray-800">Deseja realmente sair?</h2>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                onClick={() => setShowLogoutModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              >
+                Sair
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Conteúdo principal */}
       <div className="flex-1 flex flex-col bg-white min-h-screen">
-       <div className="relative bg-[#cfe8fc] h-40 flex items-center justify-center w-full mt-16 md:mt-0" >
-  <div className="flex flex-col items-center justify-center">
-    <img
-      src={icones.find((i) => i.id === iconeSelecionado)?.url || "https://via.placeholder.com/150"}
-      alt="Ícone de perfil"
-      className="rounded-full border-4 border-white w-36 h-36 object-cover mb-2 mt-4"
-    />
-    {isEditing && (
-      <div className="flex flex-wrap gap-4 justify-center mt-4">
-        {icones.map((icone) => (
-          <img
-            key={icone.id}
-            src={icone.url}
-            alt={`Ícone ${icone.id}`}
-            onClick={() => setIconeSelecionado(icone.id)}
-            className={`w-14 h-14 rounded-full cursor-pointer border-4 ${iconeSelecionado === icone.id ? "border-blue-700" : "border-transparent"} hover:opacity-80 transition`}
-          />
-        ))}
-      </div>
-    )}
-  </div>
-</div>
-
+        <div className="relative bg-[#cfe8fc] h-40 flex items-center justify-center w-full mt-16 md:mt-0" >
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src={icones.find((i) => i.id === iconeSelecionado)?.url || "https://via.placeholder.com/150"}
+              alt="Ícone de perfil"
+              className="rounded-full border-4 border-white w-36 h-36 object-cover mb-2 mt-4"
+            />
+            {isEditing && (
+              <div className="flex flex-wrap gap-4 justify-center mt-4">
+                {icones.map((icone) => (
+                  <img
+                    key={icone.id}
+                    src={icone.url}
+                    alt={`Ícone ${icone.id}`}
+                    onClick={() => setIconeSelecionado(icone.id)}
+                    className={`w-14 h-14 rounded-full cursor-pointer border-4 ${iconeSelecionado === icone.id ? "border-blue-700" : "border-transparent"} hover:opacity-80 transition`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
         <div className="flex flex-col items-center w-full px-8 mt-12 md:mt-10 flex-grow">
           <div className="flex-1 space-y-4 w-full max-w-5xl">
             <input
@@ -191,7 +226,6 @@ function Perfil() {
               disabled={!isEditing}
               className="w-full p-3 border rounded placeholder-gray-400"
             />
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="date"
@@ -200,7 +234,6 @@ function Perfil() {
                 disabled={!isEditing}
                 className="w-full p-3 border rounded text-gray-700"
               />
-
               <select
                 value={userData.sexo}
                 onChange={(e) => setUserData({ ...userData, sexo: e.target.value })}
@@ -211,7 +244,6 @@ function Perfil() {
                 <option value="F">Feminino</option>
               </select>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <label className="flex items-center space-x-2">
                 <input
@@ -223,7 +255,16 @@ function Perfil() {
                 />
                 <span className="text-gray-700">Doador de Medula Óssea</span>
               </label>
-
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={userData.notificacoes}
+                  onChange={(e) => setUserData({ ...userData, notificacoes: e.target.checked })}
+                  disabled={!isEditing}
+                  className="h-5 w-5"
+                />
+                <span className="text-gray-700">Receber notificações por e-mail</span>
+              </label>
               <select
                 value={userData.tipoSanguineo}
                 onChange={(e) => setUserData({ ...userData, tipoSanguineo: e.target.value })}
@@ -240,7 +281,6 @@ function Perfil() {
                 <option value="O-">O-</option>
               </select>
             </div>
-
             <div className="flex flex-col md:flex-row gap-16 mt-8 justify-center">
               {isEditing ? (
                 <>
@@ -268,8 +308,6 @@ function Perfil() {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
         <p className="text-gray-400 text-xs mt-10 mb-4 text-center">
           &copy; 2025 HemoWeb. Todos os direitos reservados.
         </p>

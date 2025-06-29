@@ -11,7 +11,7 @@ async function main() {
   ];
 
   for (const icone of icones) {
-    await prisma.icone.create({ data: icone, skipDuplicates: true });
+    await prisma.icone.create({ data: icone });
   }
 
   console.log('Ícones inseridos com sucesso!');
@@ -156,7 +156,7 @@ async function main() {
     }
   ];
 
-  await prisma.hemocentros.createMany({ data: hemocentros, skipDuplicates: true });
+  await prisma.hemocentros.createMany({ data: hemocentros});
 
   console.log('Hemocentros inseridos com sucesso!');
 }

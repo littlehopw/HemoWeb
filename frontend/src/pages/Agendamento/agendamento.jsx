@@ -3,6 +3,8 @@ import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { FiEdit, FiTrash2, FiCheck } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from '../../assets/icons/logout.png';
 
 function Agendamento() {
   const [abaSelecionada, setAbaSelecionada] = useState('andamento');
@@ -12,6 +14,14 @@ function Agendamento() {
   const [modalExcluirAberto, setModalExcluirAberto] = useState(false);
   const [agendamentoSelecionado, setAgendamentoSelecionado] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    navigate("/login");
+  };
 
   useEffect(() => {
     async function fetchAgendamentos() {
@@ -147,7 +157,39 @@ function Agendamento() {
                 FAQ
               </Link>
             </li>
+            <li>
+              <button src={LogoutIcon}
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowLogoutModal(true);
+                }}
+                className="text-left w-full hover:text-blue-300"
+              >
+                Sair
+              </button>
+            </li>
           </ul>
+        </div>
+      )}
+      {showLogoutModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
+            <h2 className="text-lg font-semibold mb-4 text-gray-800">Deseja sair da sua conta?</h2>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                onClick={() => setShowLogoutModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              >
+                Sair
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -178,7 +220,7 @@ function Agendamento() {
                   <p className="text-sm text-gray-700">
                     <b>Dia:</b> {new Date(item.data_agendamento).toLocaleDateString()}<br />
                     <b>Horário:</b> {new Date(item.data_agendamento).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}<br />
-                    <b>Local:</b> {item.hemocentro?.rua}, {item.hemocentro?.numero}, {item.hemocentro?.bairro}, {item.hemocentro?.cidade} - {item.hemocentro?.estado}
+                    <b>Local:</b> {item.hemocentro?.rua}, {item.hemocentro?.bairro}, {item.hemocentro?.cidade} - {item.hemocentro?.estado}
                   </p>
                 </div>
                 {abaSelecionada === 'andamento' ? (

@@ -1,6 +1,8 @@
 import "../../App.css";
 import Sidebar from "../../components/Sidebar/sidebar.jsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from '../../assets/icons/logout.png';
 
 function Mensagem({ titulo, conteudo }) {
   return (
@@ -36,6 +38,14 @@ function Mensagem({ titulo, conteudo }) {
 function Notificacao() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [abaAtiva, setAbaAtiva] = useState("novas");
+  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    navigate("/login");
+  };
 
   const mensagensNovas = [
     { titulo: "Mensagem", conteudo: "Conteúdo da mensagem" },
@@ -114,9 +124,43 @@ function Notificacao() {
                 FAQ
               </a>
             </li>
+            <li>
+              <button src={LogoutIcon}
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowLogoutModal(true);
+                }}
+                className="text-left w-full hover:text-blue-300"
+              >
+                Sair
+              </button>
+            </li>
           </ul>
         </div>
       )}
+      {showLogoutModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-80 text-center">
+            <h2 className="text-lg font-semibold mb-4 text-gray-800">Deseja realmente sair?</h2>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                onClick={() => setShowLogoutModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+              >
+                Sair
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       {/* Conteúdo principal */}
       <div className="bg-white min-h-screen flex-1 flex flex-col">
         <div className="relative bg-white md:bg-[#cfe8fc] h-40 flex items-center justify-center w-full mt-12 md:mt-0">
@@ -135,21 +179,19 @@ function Notificacao() {
           <div className="flex gap-4 mb-4 border-b w-[70%] mx-auto">
             <button
               onClick={() => setAbaAtiva("novas")}
-              className={`pb-2 ${
-                abaAtiva === "novas"
-                  ? "border-b-2 border-blue-600 text-blue-600 font-bold"
-                  : "text-gray-500 hover:text-blue-600"
-              }`}
+              className={`pb-2 ${abaAtiva === "novas"
+                ? "border-b-2 border-blue-600 text-blue-600 font-bold"
+                : "text-gray-500 hover:text-blue-600"
+                }`}
             >
               Novas
             </button>
             <button
               onClick={() => setAbaAtiva("lidas")}
-              className={`pb-2 ${
-                abaAtiva === "lidas"
-                  ? "border-b-2 border-blue-600 text-blue-600 font-bold"
-                  : "text-gray-500 hover:text-blue-600"
-              }`}
+              className={`pb-2 ${abaAtiva === "lidas"
+                ? "border-b-2 border-blue-600 text-blue-600 font-bold"
+                : "text-gray-500 hover:text-blue-600"
+                }`}
             >
               Lidas
             </button>

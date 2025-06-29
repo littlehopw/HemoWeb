@@ -27,18 +27,6 @@ router.get("/", authMiddleware, agendamentoController.getAll);
 /**
  * @swagger
  * /agendamento:
- *   get:
- *     summary: Lista um agendamento
- *     tags: [Agendamento]
- *     responses:
- *       200:
- *         description: Agendamento específico
- */
-router.get("/:id", authMiddleware, agendamentoController.getOne);
-
-/**
- * @swagger
- * /agendamento:
  *   post:
  *     summary: Cria um agendamento
  *     tags: [Agendamento]

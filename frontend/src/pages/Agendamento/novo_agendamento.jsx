@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import Select from 'react-select';
 
 function NovoAgendamento() {
     const [data, setData] = useState(new Date());
@@ -12,7 +13,6 @@ function NovoAgendamento() {
     const { id } = useParams();
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const navigate = useNavigate();
-
     const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -82,6 +82,13 @@ function NovoAgendamento() {
         }
     };
 
+    const hemocentroOptions = hemocentros.map((h) => ({
+        value: h.id,
+        label: `${h.rua} - ${h.bairro} (${h.cidade} - ${h.estado})`,
+    }));
+
+    const selectedHemocentro = hemocentroOptions.find((option) => option.value === parseInt(hemocentroId));
+
     return (
         <div className="flex">
             <div className="hidden md:block">
@@ -133,19 +140,14 @@ function NovoAgendamento() {
                         value={hora}
                         onChange={(e) => setHora(e.target.value)}
                     />
-                    <select
-                        className="mt-4 border border-gray-300 rounded-md px-4 py-2 w-80"
-                        value={hemocentroId}
-                        onChange={(e) => setHemocentroId(e.target.value)}
-                    >
-                        <option value="">Selecione um Hemocentro</option>
-                        {hemocentros.map((h) => (
-                            <option key={h.id} value={h.id}>
-                                {h.rua} - {h.bairro}
-                            </option>
-                        ))}
-                    </select>
-
+                    <Select
+                        className="mt-4 w-80 text-sm"
+                        options={hemocentroOptions}
+                        value={selectedHemocentro}
+                        onChange={(selectedOption) => setHemocentroId(selectedOption?.value)}
+                        placeholder="Selecione um Hemocentro"
+                        isSearchable
+                    />
                     <div className="flex gap-4 mt-6">
                         <button onClick={handleConfirmar} className="bg-[#007bff] text-white px-6 py-2 rounded-full hover:bg-blue-700">
                             {id ? 'Atualizar' : 'Confirmar'}

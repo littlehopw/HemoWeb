@@ -4,34 +4,18 @@ const agendamentoController = {
   // Listar todos
   async getAll(req, res) {
     try {
-      const agendamento = await prisma.agendamento.findMany({
+      const usuarioId = req.usuarioId; // <- do middleware de autenticação
+      const agendamentos = await prisma.agendamento.findMany({
+        where: {
+          usuario_fk: usuarioId
+        },
         include: {
           hemocentro: true
         }
       });
-      res.json(agendamento);
+      res.json(agendamentos);
     } catch (error) {
-      res.status(500).json({ error: "Erro ao buscar os Agendamento." });
-    }
-  },
-
-  // Listar um pelo id
-  async getOne(req, res) {
-    try {
-      const agendamento = await prisma.agendamento.findUnique({
-        where: { id: Number(req.params.id) },
-        include: {
-          hemocentro: true
-        }
-      });
-      if (agendamento) {
-        res.json(agendamento);
-      } else {
-        res.status(404).json({ error: "Agendamento não encontrado." });
-      }
-    } catch (error) {
-      console.error("Erro ao buscar agendamento:", error);
-      res.status(500).json({ error: "Erro ao buscar o Agendamento." });
+      res.status(500).json({ error: "Erro ao buscar os Agendamentos." });
     }
   },
 
