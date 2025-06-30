@@ -33,7 +33,6 @@ function Header() {
           <a href="#" className="header-nav-link">Página Inicial</a>
           <a href="#about" className="header-nav-link">Sobre Nós</a>
           <a href="#why" className="header-nav-link">Por que doar?</a>
-          <a href="#hemocentros" className="header-nav-link">Hemocentros</a>
         </nav>
 
         {/* CTA (ícone + texto) - visível no desktop */}

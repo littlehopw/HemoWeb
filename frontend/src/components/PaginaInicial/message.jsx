@@ -1,9 +1,16 @@
 import React from "react";
 import vectorMessage from "../../assets/vector-message.png";
+import { motion } from "framer-motion";
 
 function Message() {
   return (
-    <div className="bg-[var(--light-background-color)] flex flex-col items-center justify-center mt-20">
+    <motion.div
+      className="bg-[var(--light-background-color)] flex flex-col items-center justify-center mt-20"
+      initial={{ opacity: 0}}
+      whileInView={{ opacity: 1}}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <img
         src={vectorMessage}
         alt="Mensagem"
@@ -27,7 +34,7 @@ function Message() {
       >
         salve vidas
       </h3>
-    </div>
+    </motion.div>
   );
 }
 

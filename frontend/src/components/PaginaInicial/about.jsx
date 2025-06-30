@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import vectorAbout from '../../assets/vector-about.png';
 
 function About() {
@@ -6,14 +7,25 @@ function About() {
       id="about"
       className="max-w-full md:max-w-7xl mx-0 md:mx-auto bg-[var(--light-background-color)] rounded-none md:rounded-[40px] p-10 md:p-24 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-20 items-center mt-20"
     >
-      <div className="flex justify-center">
+      <motion.div
+        className="flex justify-center"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <img
           src={vectorAbout}
           alt="Sobre Nós"
           className="h-[315px] w-[324px] md:h-[378px] md:w-[388px] block mx-auto transition-transform duration-300 ease-in-out hover:scale-105"
         />
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+      >
         <h2
           className="font-bold text-[var(--primary-color-4)] mb-4 text-center md:text-left"
           style={{
@@ -31,7 +43,7 @@ function About() {
           Nosso sistema visa substituir os métodos tradicionais, como telefonemas e listas impressas, por uma gestão moderna e eficiente.
           Com funcionalidades como agendamento online e notificações personalizadas, oferecemos aos usuários a possibilidade de se programar para a doação de forma prática e sem a necessidade de contato direto com os locais de doação, otimizando o processo.
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }
