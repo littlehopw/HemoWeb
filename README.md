@@ -1,4 +1,3 @@
-
 # HemoWeb
 
 Projeto realizado para a disciplina de Laboratório de Engenharia de Software, com o objetivo de desenvolver uma plataforma de coordenação pessoal de doação de sangue. O sistema oferece funcionalidades como:
@@ -10,10 +9,26 @@ Projeto realizado para a disciplina de Laboratório de Engenharia de Software, c
 
 ## Stack utilizada
 
-**Front-end:** React (com JSX), TailwindCSS, Vite  
-**Back-end:** Node.js, Express, Prisma ORM, Swagger
-**Banco de dados:** PostgreSQL
-**Outros:** Firebase (para login social), Docker
+**Front-end:**
+- React
+- Vite
+- Tailwind CSS
+- Firebase Authentication
+
+**Back-end:**
+- Node.js
+- Express
+- Prisma ORM
+- JWT
+- bcrypt 
+- cors 
+- Swagger
+
+**Banco de dados:**
+- PostgreSQL
+
+**Outros:**
+- Docker
 
 ---
 
