@@ -1,19 +1,31 @@
 
 # HemoWeb
 
-Projeto realizado para a matéria de Laboratório de Engenharia de Software, consistindo na produção de um software de coordenação pessoal de doação de sangue, com funcionalidades de agendamento e histórico de doações.
+Projeto realizado para a disciplina de Laboratório de Engenharia de Software, com o objetivo de desenvolver uma plataforma de coordenação pessoal de doação de sangue. O sistema oferece funcionalidades como:
 
+- Agendamento de doações
+- Notificações e mensagens de lembrete para o usuário
+
+---
 
 ## Stack utilizada
 
-**Front-end:** React, TailwindCSS
+**Front-end:** React (com JSX), TailwindCSS, Vite  
+**Back-end:** Node.js, Express, Prisma ORM, Swagger
+**Banco de dados:** PostgreSQL
+**Outros:** Firebase (para login social), Docker
 
-**Back-end:** Node, Vite
+---
 
+## Acesse o sistema em produção
+
+A aplicação pode ser acessada em:[https://hemoweb.com.br](https://hemoweb.com.br)
+
+---
 
 ## Rodando localmente
 
-Clone o projeto
+Clone o projeto:
 
 ```bash
   git clone https://github.com/littlehopw/HemoWeb.git
@@ -23,19 +35,19 @@ Clone o projeto
 
 ### Frontend
 
-Entre no diretório "Front-end" do projeto
+Entre no diretório "Front-end" do projeto:
 
 ```bash
   cd frontend
 ```
 
-Instale as dependências
+Instale as dependências:
 
 ```bash
   npm install
 ```
 
-Inicie o servidor
+Inicie o servidor:
 
 ```bash
   npm run dev
@@ -43,19 +55,19 @@ Inicie o servidor
 
 ### Backend
 
-Entre no diretório "Back-end" do projeto
+Entre no diretório "Back-end" do projeto:
 
 ```bash
   cd backend
 ```
 
-Instale as dependências
+Instale as dependências:
 
 ```bash
   npm install
 ```
 
-Inicie o servidor
+Inicie o servidor:
 
 ```bash
   npm run dev
@@ -72,6 +84,7 @@ Criar servidor com as configurações como o modelo:
 Criar database com o nome de hemoweb
 
 Copiar o arquivo 
+
 ```bash
   .env.example
 ```
@@ -86,15 +99,26 @@ e colar sem o .example configurando de acordo com a sua máquina:
     PORT=5000
 ```
 
+Rode as migrations do Prisma (dentro da pasta backend):
+
+```bash
+  npx prisma migrate dev
+```
+---
+
 ## Documentação
 
 [Documentação - Confluence](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
 
+[Documentação da API via Swagger](http://localhost:5000/api-docs)
+
+---
 
 ## Demonstração
 
 
 
+---
 
 ## Autores
 
