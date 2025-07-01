@@ -19,6 +19,19 @@ const agendamentoController = {
     }
   },
 
+  async getOne(req, res) {
+  try {
+    const id = Number(req.params.id);
+    const agendamento = await prisma.agendamento.findUnique({ where: { id } });
+    if (!agendamento) {
+      return res.status(404).json({ error: "Agendamento não encontrado." });
+    }
+    res.json(agendamento);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar o agendamento." });
+  }
+},
+
   // Criar um
   async create(req, res) {
     try {

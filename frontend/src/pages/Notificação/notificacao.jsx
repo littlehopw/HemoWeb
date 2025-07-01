@@ -3,6 +3,7 @@ import Sidebar from "../../components/Sidebar/sidebar.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '../../assets/icons/logout.png';
+import { useNotificacoes } from '../../context/notificacao_contexto.jsx';
 
 function Mensagem({ titulo, conteudo }) {
   return (
@@ -40,6 +41,12 @@ function Notificacao() {
   const [abaAtiva, setAbaAtiva] = useState("novas");
   const navigate = useNavigate();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const { notificacoes, notificacoesNovas, marcarTodasComoLidas } = useNotificacoes();
+  const [showExcluirModal, setShowExcluirModal] = useState(false);
+
+  const mensagensExibidas = abaAtiva === "novas"
+    ? notificacoesNovas
+    : notificacoes.filter(n => n.status === true);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -47,29 +54,26 @@ function Notificacao() {
     navigate("/login");
   };
 
-  const mensagensNovas = [
-    { titulo: "Mensagem", conteudo: "Conteúdo da mensagem" },
-    {
-      titulo: "Mensagem importante",
-      conteudo: "Lembre-se de realizar seu exame.",
-    },
-    { titulo: "Notificação 3", conteudo: "Esta é uma mensagem adicional." },
-    { titulo: "Notificação 4", conteudo: "Mais uma mensagem para teste." },
-  ];
+  const deletarTodasNotificacoesDoUsuario = async () => {
+    const token = localStorage.getItem("token");
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!token || !usuario) return;
 
-  const mensagensLidas = [
-    {
-      titulo: "Alerta",
-      conteudo: "Você tem uma nova notificação de consulta.",
-    },
-    {
-      titulo: "Atualização",
-      conteudo: "Seu cadastro foi atualizado com sucesso.",
-    },
-  ];
+    try {
+      await fetch(`/api/notificacao/usuario/${usuario.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  const mensagensExibidas =
-    abaAtiva === "novas" ? mensagensNovas : mensagensLidas;
+      if (typeof window !== "undefined" && window.location) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Erro ao deletar notificações:", error);
+    }
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -201,21 +205,50 @@ function Notificacao() {
               <Mensagem
                 key={index}
                 titulo={mensagem.titulo}
-                conteudo={mensagem.conteudo}
+                conteudo={mensagem.mensagem}
               />
             ))}
           </div>
 
           {/* Botões agora abaixo dos cards */}
           <div className="flex flex-wrap gap-6 justify-center mt-14 mb-4">
-            <button className="bg-blue-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
+            <button
+              onClick={marcarTodasComoLidas}
+              className="bg-blue-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90"
+            >
               Ler tudo
             </button>
-            <button className="bg-red-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90">
+            <button
+              onClick={() => setShowExcluirModal(true)}
+              className="bg-red-600 text-white px-6 py-2 h-12 rounded-full hover:opacity-90"
+            >
               Excluir tudo
             </button>
           </div>
-
+          {showExcluirModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
+                <h2 className="text-lg font-semibold mb-4 text-gray-800">Deseja excluir todas as notificações?</h2>
+                <div className="flex justify-center gap-4 mt-4">
+                  <button
+                    onClick={() => setShowExcluirModal(false)}
+                    className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={async () => {
+                      await deletarTodasNotificacoesDoUsuario();
+                      setShowExcluirModal(false);
+                    }}
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                  >
+                    Excluir
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           {/* Footer */}
           <p className="text-gray-400 text-xs mt-10 mb-4 text-center w-full">
             &copy; 2025 HemoWeb. Todos os direitos reservados.

@@ -72,4 +72,16 @@ router.put("/:id", authMiddleware, notificacaoController.update);
  */
 router.delete("/:id", authMiddleware, notificacaoController.delete);
 
+/**
+ * @swagger
+ * /notificacao:
+ *   delete:
+ *     summary: Exclui notificações
+ *     tags: [Notificação]
+ *     responses:
+ *       200:
+ *         description: Notificações excluídas
+ */
+router.delete("/usuario/:id", authMiddleware, notificacaoController.deleteByUsuario);
+
 export default router;

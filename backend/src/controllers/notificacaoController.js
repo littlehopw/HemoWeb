@@ -7,53 +7,86 @@ const notificacaoController = {
       const notificacoes = await prisma.notificacao.findMany({});
       res.json(notificacoes);
     } catch (error) {
-      res.status(500).json({error: "Erro ao buscar as Notificação."});
+      res.status(500).json({ error: "Erro ao buscar as Notificação." });
     }
   },
 
   // Listar um pelo id
   async getOne(req, res) {
     try {
-      const notificacao = await prisma.notificacao.findUnique({ where: { id: Number(req.params.id)} });
+      const notificacao = await prisma.notificacao.findUnique({ where: { id: Number(req.params.id) } });
       if (notificacao) {
         res.json(notificacao);
       } else {
-        res.status(404).json({error: "Notificação não encontrada."});
+        res.status(404).json({ error: "Notificação não encontrada." });
       }
     } catch (error) {
-      res.status(500).json({error: "Erro ao buscar a Notificação."});
+      res.status(500).json({ error: "Erro ao buscar a Notificação." });
     }
   },
 
   // Criar um
   async create(req, res) {
     try {
-      const notificacao = await prisma.notificacao.create({ data: req.body });
-      res.json(notificacao);
+      const { titulo, mensagem, status, usuario_fk } = req.body;
+
+      if (!titulo || !mensagem || status === undefined || !usuario_fk) {
+        return res.status(400).json({ error: "Campos obrigatórios faltando." });
+      }
+
+      const notificacao = await prisma.notificacao.create({
+        data: {
+          titulo,
+          mensagem,
+          status,
+          usuario_fk: Number(usuario_fk),
+        },
+      });
+
+      res.status(201).json(notificacao);
     } catch (error) {
-      res.status(500).json({error: "Erro ao criar a Notificação."});
+      console.error('Erro ao criar a Notificação:', error);  // <<<<<<<<<<<<<<<
+      res.status(500).json({ error: error.message || "Erro ao criar a Notificação." });
     }
   },
 
   // Atualizar
   async update(req, res) {
     try {
-      const notificacao = await prisma.notificacao.update({ where: { id: Number(req.params.id) }, data: req.body });
+      const notificacao = await prisma.notificacao.update({
+        where: { id: Number(req.params.id) },
+        data: {
+          status: req.body.status || "lida"
+        }
+      });
       res.json(notificacao);
     } catch (error) {
-      res.status(500).json({error: "Erro ao atualizar a Notificação."});
+      res.status(500).json({ error: "Erro ao atualizar a Notificação." });
     }
   },
+
 
   // Deletar
   async delete(req, res) {
     try {
-      await prisma.notificacao.delete({ where: { id: Number(req.params.id)} });
+      await prisma.notificacao.delete({ where: { id: Number(req.params.id) } });
       res.json({ message: "Notificação removida com sucesso!" });
     } catch (error) {
-      res.status(500).json({error: "Erro ao excluir a Notificação."});
+      res.status(500).json({ error: "Erro ao excluir a Notificação." });
     }
   },
+
+  // Deletar todas de um usuário
+  async deleteByUsuario(req, res) {
+    try {
+      const usuarioId = Number(req.params.id);
+      await prisma.notificacao.deleteMany({ where: { usuario_fk: usuarioId } });
+      res.json({ message: "Todas as notificações foram removidas com sucesso!" });
+    } catch (error) {
+      res.status(500).json({ error: "Erro ao excluir notificações do usuário." });
+    }
+  },
+
 }
 
 export default notificacaoController;

@@ -17,34 +17,37 @@ import EditarAgendamento from './pages/Agendamento/editar_agendamento';
 import FAQ from './pages/FAQ/faq';
 import PoliticaPrivacidade from './pages/TermosPolitica/politica_privacidade';
 import TermosDeUso from './pages/TermosPolitica/termos_de_uso';
+import { NotificationProvider } from "./context/notificacao_contexto";
 
 export default function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<PaginaInicial />} />
+      <NotificationProvider>
+        <Routes>
+          <Route path="/" element={<PaginaInicial />} />
 
-        <Route path="cadastro" element={<Cadastro />} />
-        <Route path="verificacao" element={<Verificacao />} />
-        <Route path="informacoes_extras" element={<InformacoesExtras />} />
-        <Route path="confirmacao_cadastro" element={<ConfirmacaoCadastro />} />
-        <Route path="politica_privacidade" element={<PoliticaPrivacidade />} />
-        <Route path="termos_uso" element={<TermosDeUso />} />
+          <Route path="cadastro" element={<Cadastro />} />
+          <Route path="verificacao" element={<Verificacao />} />
+          <Route path="informacoes_extras" element={<InformacoesExtras />} />
+          <Route path="confirmacao_cadastro" element={<ConfirmacaoCadastro />} />
+          <Route path="politica_privacidade" element={<PoliticaPrivacidade />} />
+          <Route path="termos_uso" element={<TermosDeUso />} />
 
-        <Route path="login" element={<Login />} />
-        <Route path="esqueci_minha_senha" element={<EsqueciMinhaSenha />} />
-        <Route path="redefina_a_senha" element={<RedefinaASenha />} />
-        <Route path="senha_redefinida" element={<SenhaRedefinida />} />
+          <Route path="login" element={<Login />} />
+          <Route path="esqueci_minha_senha" element={<EsqueciMinhaSenha />} />
+          <Route path="redefina_a_senha" element={<RedefinaASenha />} />
+          <Route path="senha_redefinida" element={<SenhaRedefinida />} />
 
-        <Route path="perfil" element={<Perfil />} />
-        <Route path="notificacao" element={<Notificacao />} />
+          <Route path="perfil" element={<Perfil />} />
+          <Route path="notificacao" element={<Notificacao />} />
 
-        <Route path="agendamento" element={<Agendamento />} />
-        <Route path="novo_agendamento" element={<NovoAgendamento />} />
-        <Route path="editar_agendamento/:id" element={<EditarAgendamento />} />
+          <Route path="agendamento" element={<Agendamento />} />
+          <Route path="novo_agendamento" element={<NovoAgendamento />} />
+          <Route path="editar_agendamento/:id" element={<EditarAgendamento />} />
 
-        <Route path="faq" element={<FAQ />} />
-      </Routes>
+          <Route path="faq" element={<FAQ />} />
+        </Routes>
+      </NotificationProvider>
     </div>
   );
 }

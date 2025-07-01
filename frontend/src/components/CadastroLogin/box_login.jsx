@@ -9,6 +9,8 @@ import {
   facebookProvider,
 } from "../../firebase/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
+import { fetchAgendamentosEVerificar } from "../../utils/notificacao_utils";
+import { useNotificacoes } from '../../context/notificacao_contexto.jsx';
 
 function LoginBox() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,16 +18,21 @@ function LoginBox() {
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false); // estado para bloquear cliques múltiplos
   const navigate = useNavigate();
+  const { fetchNotificacoes } = useNotificacoes();
 
   // Login tradicional com email e senha
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (loading) return; // previne múltiplos envios
+    if (loading) return;
     setLoading(true);
     try {
       const data = await login(email, senha);
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+      await fetchAgendamentosEVerificar();
+      await fetchNotificacoes();
+
       alert("Login realizado com sucesso!");
       navigate("/perfil");
     } catch (error) {
@@ -42,12 +49,13 @@ function LoginBox() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      // Chama a função de login com senha vazia
       const data = await login(user.email, "");
-
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario || data));
+
+      await fetchAgendamentosEVerificar();
+      await fetchNotificacoes();
+
       alert("Login com rede social realizado com sucesso!");
       navigate("/perfil");
     } catch (error) {
@@ -101,9 +109,8 @@ function LoginBox() {
         </div>
         <button
           type="submit"
-          className={`w-full bg-blue-700 text-white py-1.5 text-sm rounded-md hover:bg-blue-800 transition mt-2 ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          className={`w-full bg-blue-700 text-white py-1.5 text-sm rounded-md hover:bg-blue-800 transition mt-2 ${loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           disabled={loading}
         >
           Faça Login
@@ -115,9 +122,8 @@ function LoginBox() {
       </div>
       <div className="flex justify-center gap-3 mt-1.5">
         <button
-          className={`p-1.5 bg-gray-100 rounded-full hover:bg-gray-200 ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          className={`p-1.5 bg-gray-100 rounded-full hover:bg-gray-200 ${loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           type="button"
           onClick={() => handleSocialLogin(googleProvider)}
           disabled={loading}

@@ -54,7 +54,7 @@ model Notificacao {
   id               Int      @id @default(autoincrement())
   titulo           String
   mensagem         String
-  status           String
+  status           Boolean
   usuario_fk       Int
   data_criacao     DateTime @default(now())
   data_modificacao DateTime @updatedAt

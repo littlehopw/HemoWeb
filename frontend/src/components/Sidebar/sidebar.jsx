@@ -8,9 +8,10 @@ import FAQIcon from '../../assets/icons/faq.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import LogoutIcon from '../../assets/icons/logout.png';
+import { useNotificacoes } from '../../context/notificacao_contexto.jsx';
 
 function Sidebar() {
-
+    const { notificacoesNovas } = useNotificacoes();
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
 
@@ -33,8 +34,13 @@ function Sidebar() {
                         <img src={HomeIcon} alt="Home" className="w-8 h-8" />
                         <span className="hidden md:block text-sm mt-1">Perfil</span>
                     </Link>
-                    <Link to="/notificacao" className="flex flex-col items-center">
-                        <img src={NotificationIcon} alt="Notificações" className="w-8 h-8" />
+                    <Link to="/notificacao" className="relative flex flex-col items-center">
+                        <div className="relative">
+                            <img src={NotificationIcon} alt="Notificações" className="w-8 h-8" />
+                            {notificacoesNovas.length > 0 && (
+                                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
+                            )}
+                        </div>
                         <span className="hidden md:block text-sm mt-1">Notificações</span>
                     </Link>
                     <Link to="/agendamento" className="flex flex-col items-center">
