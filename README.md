@@ -131,7 +131,11 @@ Rode as migrations do Prisma (dentro da pasta backend):
 
 ## Demonstração
 
+[Página Inicial, Cadastro e Login](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
 
+[Notificações e Agendamento](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
+
+[Logout e Responsividade](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
 
 ---
 
