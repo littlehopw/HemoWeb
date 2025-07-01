@@ -124,18 +124,15 @@ Rode as migrations do Prisma (dentro da pasta backend):
 ## Documentação
 
 [Documentação - Confluence](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
-
 [Documentação da API via Swagger](http://localhost:5000/api-docs)
 
 ---
 
 ## Demonstração
 
-[Página Inicial, Cadastro e Login](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
-
-[Notificações e Agendamento](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
-
-[Logout e Responsividade](https://hemoweb.atlassian.net/wiki/spaces/HemoWeb/overview?homepageId=98454)
+[Página Inicial, Cadastro e Login](./readme%20-%20Pagina%20Inicial%20+%20Cadastro%20+%20Login.gif)
+[Notificações e Agendamento](./readme%20-%20Notificacao%20+%20Agendamento.gif)
+[Logout e Responsividade](./readme%20-%20Logout%20+%20Responsividade.gif)
 
 ---
 
