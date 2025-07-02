@@ -1,11 +1,16 @@
 import "../../../src/App.css";
 import vectorWhy from '../../assets/vector-why.png';
+import { motion } from "framer-motion";
 
 function Why() {
   return (
-    <div
+    <motion.div
       id="why"
       className="max-w-full md:max-w-7xl mx-0 md:mx-auto bg-[var(--light-background-color)] rounded-none md:rounded-[40px] p-10 md:p-24 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-20 items-center mt-20"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="flex flex-col items-center order-1 md:order-2">
         <h2
@@ -61,7 +66,7 @@ function Why() {
           Seu consumo é diário e contínuo, já que a transfusão de sangue é necessária em diversas situações, tais como anemias crônicas, cirurgias de urgência, acidentes que causam hemorragias, complicações da dengue, febre amarela, tratamento de câncer e outras doenças graves.
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
