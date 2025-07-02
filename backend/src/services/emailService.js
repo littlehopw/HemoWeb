@@ -8,16 +8,16 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function enviarEmail({ to, subject, html }) {
   try {
     const response = await resend.emails.send({
-      from: 'HemoWeb <onboarding@resend.dev>', // dominio pra testes 
+      from: 'HemoWeb <contato@hemoweb.com.br>', // dominio pra testes 
       to,
       subject,
       html,
     });
 
-    console.log('✅ Email enviado:', response);
+    console.log('Email enviado:', response);
     return response;
   } catch (error) {
-    console.error('❌ Erro ao enviar e-mail:', error);
+    console.error('Erro ao enviar e-mail:', error);
     throw error;
   }
 }

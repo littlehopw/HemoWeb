@@ -1,4 +1,5 @@
 import prisma from '../prisma/client.js';
+import { enviarEmail } from '../services/emailService.js';
 
 const notificacaoController = {
   // Listar todos
@@ -43,12 +44,28 @@ const notificacaoController = {
         },
       });
 
+      // Busca o usuário para checar se aceita notificações
+      const usuario = await prisma.usuario.findUnique({
+        where: { id: Number(usuario_fk) },
+        select: { email: true, notificacoes: true, nome: true },
+      });
+
+      if (usuario?.notificacoes) {
+        console.log("📨 Enviando e-mail para:", usuario.email);
+        await enviarEmail({
+          to: usuario.email,
+          subject: `Nova Notificação: ${titulo}`,
+          html: `<p>Olá ${usuario.nome},</p><p>${mensagem}</p>`
+        });
+      }
+
       res.status(201).json(notificacao);
     } catch (error) {
-      console.error('Erro ao criar a Notificação:', error);  // <<<<<<<<<<<<<<<
+      console.error('Erro ao criar a Notificação:', error);
       res.status(500).json({ error: error.message || "Erro ao criar a Notificação." });
     }
   },
+
 
   // Atualizar
   async update(req, res) {
