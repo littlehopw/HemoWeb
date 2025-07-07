@@ -51,7 +51,7 @@ const notificacaoController = {
       });
 
       if (usuario?.notificacoes) {
-        console.log("📨 Enviando e-mail para:", usuario.email);
+        console.log("Enviando e-mail para:", usuario.email);
         await enviarEmail({
           to: usuario.email,
           subject: `Nova Notificação: ${titulo}`,
