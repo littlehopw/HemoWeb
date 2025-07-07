@@ -105,6 +105,7 @@ function Perfil() {
         data_nascimento: userData.nascimento,
         sexo: userData.sexo,
         icone_fk: iconeSelecionado,
+        notificacoes: userData.notificacoes,
       };
 
       const usuarioAtualizado = await atualizarPerfil(dadosAtualizados);

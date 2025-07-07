@@ -65,6 +65,17 @@ function EditarAgendamento() {
       return;
     }
 
+    const [horaSelecionada, minutoSelecionado] = hora.split(":").map(Number);
+
+    const totalMinutos = horaSelecionada * 60 + minutoSelecionado;
+    const minPermitido = 7 * 60;
+    const maxPermitido = 18 * 60 + 30;
+
+    if (totalMinutos < minPermitido || totalMinutos > maxPermitido) {
+      alert("Escolha um horário entre 07:00 e 18:30.");
+      return;
+    }
+
     const agendamento = {
       usuario_fk: usuario.id,
       data_agendamento: data.toISOString(),
@@ -229,6 +240,8 @@ function EditarAgendamento() {
             className="mt-6 border border-gray-300 rounded-md px-4 py-2 w-80"
             value={hora}
             onChange={(e) => setHora(e.target.value)}
+            min="07:00"
+            max="18:30"
           />
           <Select
             className="mt-4 w-80 text-sm"

@@ -219,7 +219,7 @@ function Agendamento() {
                   <h2 className="text-base font-semibold mb-2">Doação</h2>
                   <p className="text-sm text-gray-700">
                     <b>Dia:</b> {new Date(item.data_agendamento).toLocaleDateString()}<br />
-                    <b>Horário:</b> {new Date(item.data_agendamento).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}<br />
+                    <b>Horário:</b> {new Date(item.horario_agendamento).toLocaleTimeString('pt-BR', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' })}<br />
                     <b>Local:</b> {item.hemocentro?.rua}, {item.hemocentro?.bairro}, {item.hemocentro?.cidade} - {item.hemocentro?.estado}
                   </p>
                 </div>
