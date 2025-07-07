@@ -8,16 +8,33 @@ export function NotificationProvider({ children }) {
   async function fetchNotificacoes() {
     const token = localStorage.getItem("token");
     if (!token) return;
+
     try {
       const res = await fetch("/api/notificacao", {
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      if (!res.ok) {
+        console.warn("Erro ao buscar notificações:", res.status);
+        setNotificacoes([]);
+        return;
+      }
+
       const data = await res.json();
+
+      if (!Array.isArray(data)) {
+        console.warn("Resposta inesperada da API:", data);
+        setNotificacoes([]);
+        return;
+      }
+
       setNotificacoes(data);
     } catch (err) {
       console.error("Erro ao carregar notificações", err);
+      setNotificacoes([]);
     }
   }
+
 
   async function fetchAgendamentosEVerificar() {
     const token = localStorage.getItem("token");
@@ -157,7 +174,10 @@ export function NotificationProvider({ children }) {
     inicializar();
   }, []);
 
-  const notificacoesNovas = notificacoes.filter((n) => n.status === false);
+  const notificacoesNovas = Array.isArray(notificacoes)
+    ? notificacoes.filter((n) => n.status === false)
+    : [];
+
 
   return (
     <NotificationContext.Provider
