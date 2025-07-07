@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '../../assets/icons/logout.png';
+import { toast } from 'react-hot-toast';
 
 function Agendamento() {
   const [abaSelecionada, setAbaSelecionada] = useState('andamento');
@@ -84,7 +85,7 @@ function Agendamento() {
       setAgendamentoSelecionado(null);
     } catch (error) {
       console.error(error);
-      alert("Erro ao concluir o agendamento.");
+      toast.error("Erro ao concluir o agendamento.");
     }
   };
 
@@ -106,7 +107,7 @@ function Agendamento() {
       setAgendamentoSelecionado(null);
     } catch (err) {
       console.error("Erro ao excluir o agendamento:", err);
-      alert("Erro ao excluir o agendamento.");
+      toast.error("Erro ao excluir o agendamento.");
     }
   };
 

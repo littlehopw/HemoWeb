@@ -4,6 +4,7 @@ import { atualizarPerfil } from '../../services/api';
 import Sidebar from '../../components/Sidebar/sidebar.jsx';
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '../../assets/icons/logout.png';
+import { toast } from 'react-hot-toast';
 
 function Perfil() {
   const [userData, setUserData] = useState({
@@ -112,10 +113,10 @@ function Perfil() {
 
       setUserData((prev) => ({ ...prev, senha: "" }));
       setIsEditing(false);
-      alert("Dados atualizados com sucesso!");
+      toast.success("Dados atualizados com sucesso!");
     } catch (error) {
       console.error("Erro ao salvar:", error);
-      alert("Erro ao salvar os dados.");
+      toast.error("Erro ao salvar os dados.");
     }
   };
 

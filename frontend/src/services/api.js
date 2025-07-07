@@ -9,17 +9,19 @@ export async function cadastrar(userData) {
     body: JSON.stringify(userData)
   });
 
-  if (!response.ok) {
-    const err = await response.json();
-    throw new Error(err.error || "Erro ao cadastrar usuário");
-  }
-
   const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(data.error || "Erro ao cadastrar usuário");
+    error.status = response.status; // <- Adiciona o código de status ao erro
+    throw error;
+  }
 
   localStorage.setItem("token", data.token);
   localStorage.setItem("usuario", JSON.stringify(data.usuario));
   return data;
 }
+
 
 export async function login(email, senha) {
   const response = await fetch(`${API_URL}/auth/login`, {

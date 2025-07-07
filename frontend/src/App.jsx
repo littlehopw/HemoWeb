@@ -18,10 +18,21 @@ import FAQ from './pages/FAQ/faq';
 import PoliticaPrivacidade from './pages/TermosPolitica/politica_privacidade';
 import TermosDeUso from './pages/TermosPolitica/termos_de_uso';
 import { NotificationProvider } from "./context/notificacao_contexto";
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   return (
     <div className="App">
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            background: '#333',
+            color: '#fff',
+          },
+        }}
+      />
       <NotificationProvider>
         <Routes>
           <Route path="/" element={<PaginaInicial />} />
