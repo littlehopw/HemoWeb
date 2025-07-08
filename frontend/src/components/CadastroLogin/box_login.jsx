@@ -6,11 +6,11 @@ import { login } from "../../services/api";
 import {
   auth,
   googleProvider,
-  facebookProvider,
 } from "../../firebase/firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { fetchAgendamentosEVerificar } from "../../utils/notificacao_utils";
 import { useNotificacoes } from '../../context/notificacao_contexto.jsx';
+import { toast } from 'react-hot-toast';
 
 function LoginBox() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,10 +33,10 @@ function LoginBox() {
       await fetchAgendamentosEVerificar();
       await fetchNotificacoes();
 
-      alert("Login realizado com sucesso!");
+      toast.success("Login realizado com sucesso!");
       navigate("/perfil");
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -56,11 +56,11 @@ function LoginBox() {
       await fetchAgendamentosEVerificar();
       await fetchNotificacoes();
 
-      alert("Login com rede social realizado com sucesso!");
+      toast.success("Login com rede social realizado com sucesso!");
       navigate("/perfil");
     } catch (error) {
       console.error("Erro no login social:", error);
-      alert("Erro no login social: " + error.message);
+      toast.error("Erro no login social: " + error.message);
     } finally {
       setLoading(false);
     }

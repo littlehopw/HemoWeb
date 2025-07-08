@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import LogoutIcon from "../../assets/icons/logout.png";
+import toast from "react-hot-toast";
 
 function EditarAgendamento() {
   const [data, setData] = useState(new Date());
@@ -61,7 +62,7 @@ function EditarAgendamento() {
 
   const handleConfirmar = async () => {
     if (!hora || !hemocentroId) {
-      alert("Preencha todos os campos!");
+      toast.error("Preencha todos os campos!");
       return;
     }
 
@@ -96,10 +97,10 @@ function EditarAgendamento() {
     });
 
     if (res.ok) {
-      alert(`Agendamento ${id ? "atualizado" : "criado"} com sucesso!`);
+      toast.success(`Agendamento ${id ? "atualizado" : "criado"} com sucesso!`);
       navigate("/agendamento");
     } else {
-      alert("Erro ao salvar o agendamento.");
+      toast.error("Erro ao salvar o agendamento.");
     }
   };
 

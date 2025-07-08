@@ -21,6 +21,10 @@ export const cadastro = async (req, res) => {
   } = req.body;
 
   try {
+    if (!nome || !email || !senha || !tipo_sanguineo || !data_nascimento || !sexo) {
+      return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
+    }
+
     const usuarioExistente = await prisma.usuario.findUnique({
       where: { email }
     });
@@ -49,7 +53,13 @@ export const cadastro = async (req, res) => {
 
   } catch (error) {
     console.error('🚨 Erro ao cadastrar:', error);
-    res.status(500).json({ error: 'Erro interno ao cadastrar usuário.' });
+
+
+    if (error.code === 'P2002') {
+      return res.status(409).json({ error: 'E-mail já está cadastrado.' });
+    }
+
+    res.status(500).json({ error: 'Erro interno. Por favor, tente novamente mais tarde.' });
   }
 };
 

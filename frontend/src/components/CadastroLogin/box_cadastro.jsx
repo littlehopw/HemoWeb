@@ -5,9 +5,10 @@ import { cadastrar } from "../../services/api";
 import {
   auth,
   googleProvider,
-  facebookProvider,
 } from "../../firebase/firebase";
 import { signInWithPopup } from "firebase/auth";
+import { toast } from "react-hot-toast";
+
 
 function CadastroBox() {
   const navigate = useNavigate();
@@ -35,15 +36,59 @@ function CadastroBox() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!termosAceitos) return;
+
+    if (!termosAceitos) {
+      toast.error("Você precisa aceitar os termos de uso.");
+      return;
+    }
+
+    if (!form.nome.trim()) {
+      toast.error("O nome é obrigatório.");
+      return;
+    }
+
+    if (!form.email.trim()) {
+      toast.error("O e-mail é obrigatório.");
+      return;
+    }
+
+    if (!form.senha.trim()) {
+      toast.error("A senha é obrigatória.");
+      return;
+    }
+
+    if (!form.tipo_sanguineo) {
+      toast.error("Selecione um tipo sanguíneo.");
+      return;
+    }
+
+    if (!form.data_nascimento) {
+      toast.error("A data de nascimento é obrigatória.");
+      return;
+    }
+
+    if (!form.sexo) {
+      toast.error("Selecione o sexo.");
+      return;
+    }
+
     try {
       await cadastrar(form);
-      alert("Usuário cadastrado com sucesso!");
+      toast.success("Usuário cadastrado com sucesso!");
       navigate("/login");
     } catch (err) {
-      alert("Erro: " + err.message);
+      let mensagem = "Erro ao realizar cadastro. Tente novamente.";
+
+      if (err.status === 409) {
+        mensagem = "Este e-mail já está em uso.";
+      } else if (err.message) {
+        mensagem = err.message;
+      }
+
+      toast.error(mensagem);
     }
   };
+
 
   const handleSocialLogin = async (provider) => {
     try {
@@ -57,9 +102,9 @@ function CadastroBox() {
         senha: "",
       }));
 
-      alert("Associação realizada! Complete o formulário para finalizar o cadastro.");
+      toast.success("Associação realizada! Complete o formulário para finalizar o cadastro.");
     } catch (err) {
-      alert("Erro ao conectar com rede social: " + err.message);
+      toast.error("Erro ao conectar com rede social: " + err.message);
     }
   };
 
@@ -189,11 +234,10 @@ function CadastroBox() {
         <button
           type="submit"
           disabled={!termosAceitos}
-          className={`w-full py-1.5 text-sm rounded-md transition ${
-            termosAceitos
-              ? "bg-blue-700 text-white hover:bg-blue-800"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-          }`}
+          className={`w-full py-1.5 text-sm rounded-md transition ${termosAceitos
+            ? "bg-blue-700 text-white hover:bg-blue-800"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
         >
           Cadastre-se
         </button>
